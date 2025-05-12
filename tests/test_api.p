@@ -4,7 +4,7 @@ from collections.abc import AsyncGenerator
 from typing import Any
 from unittest.mock import patch
 
-import aiohttp
+from aiohttp import web
 import pytest
 
 from google_air_quality_api.api import GooglePhotosLibraryApi
@@ -86,7 +86,7 @@ async def mock_create_album() -> list[dict[str, Any]]:
 
 
 @pytest.fixture(name="requests")
-async def mock_requests() -> list[aiohttp.web.Request]:
+async def mock_requests() -> list[web.Request]:
     """Fixture for fake create media items responses."""
     return []
 
@@ -94,7 +94,7 @@ async def mock_requests() -> list[aiohttp.web.Request]:
 @pytest.fixture(name="api")
 async def mock_api(
     auth_cb: AuthCallback,
-    requests: list[aiohttp.web.Request],
+    requests: list[web.Request],
     get_user_info: list[dict[str, Any]],
     get_media_item: list[dict[str, Any]],
     list_media_items: list[dict[str, Any]],
@@ -108,58 +108,58 @@ async def mock_api(
     """Fixture for fake API object."""
 
     async def get_user_info_handler(
-        request: aiohttp.web.Request,
-    ) -> aiohttp.web.Response:
+        request: web.Request,
+    ) -> web.Response:
         requests.append(request)
-        return aiohttp.web.json_response(get_user_info.pop(0))
+        return web.json_response(get_user_info.pop(0))
 
     async def get_media_item_handler(
-        request: aiohttp.web.Request,
-    ) -> aiohttp.web.Response:
+        request: web.Request,
+    ) -> web.Response:
         requests.append(request)
-        return aiohttp.web.json_response(get_media_item.pop(0))
+        return web.json_response(get_media_item.pop(0))
 
     async def list_media_items_handler(
-        request: aiohttp.web.Request,
-    ) -> aiohttp.web.Response:
+        request: web.Request,
+    ) -> web.Response:
         requests.append(request)
-        return aiohttp.web.json_response(list_media_items.pop(0))
+        return web.json_response(list_media_items.pop(0))
 
     async def search_media_items_handler(
-        request: aiohttp.web.Request,
-    ) -> aiohttp.web.Response:
+        request: web.Request,
+    ) -> web.Response:
         requests.append(request)
-        return aiohttp.web.json_response(search_media_items.pop(0))
+        return web.json_response(search_media_items.pop(0))
 
     async def get_album_handler(
-        request: aiohttp.web.Request,
-    ) -> aiohttp.web.Response:
+        request: web.Request,
+    ) -> web.Response:
         requests.append(request)
-        return aiohttp.web.json_response(get_album.pop(0))
+        return web.json_response(get_album.pop(0))
 
     async def albums_handler(
-        request: aiohttp.web.Request,
-    ) -> aiohttp.web.Response:
+        request: web.Request,
+    ) -> web.Response:
         requests.append(request)
-        return aiohttp.web.json_response(albums.pop(0))
+        return web.json_response(albums.pop(0))
 
     async def upload_media_items_handler(
-        request: aiohttp.web.Request,
-    ) -> aiohttp.web.Response:
+        request: web.Request,
+    ) -> web.Response:
         requests.append(request)
-        return aiohttp.web.Response(body=upload_media_items.pop(0))
+        return web.Response(body=upload_media_items.pop(0))
 
     async def create_media_items_handler(
-        request: aiohttp.web.Request,
-    ) -> aiohttp.web.Response:
+        request: web.Request,
+    ) -> web.Response:
         requests.append(request)
-        return aiohttp.web.json_response(create_media_items.pop(0))
+        return web.json_response(create_media_items.pop(0))
 
     async def async_create_album(
-        request: aiohttp.web.Request,
-    ) -> aiohttp.web.Response:
+        request: web.Request,
+    ) -> web.Response:
         requests.append(request)
-        return aiohttp.web.json_response(create_album.pop(0))
+        return web.json_response(create_album.pop(0))
 
     with patch("google_air_quality_api.api.USERINFO_API", "v1/userInfo"):
         auth = await auth_cb(
@@ -180,7 +180,7 @@ async def mock_api(
 async def test_get_user_info(
     api: GooglePhotosLibraryApi,
     get_user_info: list[dict[str, Any]],
-    requests: list[aiohttp.web.Request],
+    requests: list[web.Request],
 ) -> None:
     """Test get user info API."""
 

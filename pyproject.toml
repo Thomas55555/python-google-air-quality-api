@@ -44,7 +44,6 @@ aioresponses = "0.7.8"
 codespell = "2.4.1"
 covdefaults = "2.3.0"
 coverage = {version = "7.8.0", extras = ["toml"]}
-mypy = "1.15.0"
 pre-commit = "4.2.0"
 pre-commit-hooks = "5.0.0"
 pytest = "8.3.5"
@@ -56,6 +55,7 @@ time-machine = "2.16.0"
 types-pyyaml = "^6.0.12.20241230"
 yamllint = "1.37.0"
 pytest-aiohttp = "^1.1.0"
+ty = "^0.0.0a8"
 
 [tool.pytest.ini_options]
 addopts = "--cov=google_air_quality_api --cov-report=term-missing -vv"
@@ -102,36 +102,8 @@ builtins-ignorelist = ["id"]
 # Use Google-style docstrings.
 convention = "pep257"
 
-[tool.mypy]
-platform = "linux"
-python_version = "3.11"
-strict = true
-namespace_packages = true
-mypy_path = "src"
-
-# show error messages from unrelated files
-follow_imports = "normal"
-
-# suppress errors about unsatisfied imports
-ignore_missing_imports = true
-
-# strict rules
-check_untyped_defs = true
-disallow_any_generics = true
-disallow_incomplete_defs = true
-disallow_subclassing_any = true
-disallow_untyped_calls = true
-disallow_untyped_decorators = true
-disallow_untyped_defs = true
-no_implicit_optional = true
-no_implicit_reexport = true
-strict_optional = true
-warn_incomplete_stub = true
-warn_no_return = true
-warn_redundant_casts = true
-warn_return_any = true
-warn_unused_configs = true
-warn_unused_ignores = true
+[tool.ty.src]
+root = "."
 
 
 [tool.coverage.report]

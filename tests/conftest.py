@@ -2,7 +2,7 @@
 
 from collections.abc import Awaitable, Callable
 
-import aiohttp
+from aiohttp import web
 import pytest
 from aiohttp import ClientSession
 from aiohttp.web import Application
@@ -12,11 +12,7 @@ from google_air_quality_api.auth import AbstractAuth
 PATH_PREFIX = "/path-prefix"
 
 AuthCallback = Callable[
-    [
-        list[
-            tuple[str, Callable[[aiohttp.web.Request], Awaitable[aiohttp.web.Response]]]
-        ]
-    ],
+    [list[tuple[str, Callable[[web.Request], Awaitable[web.Response]]]]],
     Awaitable[AbstractAuth],
 ]
 
@@ -34,9 +30,7 @@ def mock_auth_fixture(
     aiohttp_client: Callable[[Application], Awaitable[ClientSession]],
 ) -> AuthCallback:
     async def create_auth(
-        handlers: list[
-            tuple[str, Callable[[aiohttp.web.Request], Awaitable[aiohttp.web.Response]]]
-        ],
+        handlers: list[tuple[str, Callable[[web.Request], Awaitable[web.Response]]]],
     ) -> AbstractAuth:
         """Create a test authentication library with the specified handler."""
         app = Application()

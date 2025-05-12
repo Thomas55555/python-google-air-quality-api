@@ -3,7 +3,7 @@
 import re
 from dataclasses import dataclass, field
 
-import aiohttp
+from aiohttp import web
 import pytest
 from mashumaro import field_options
 from mashumaro.mixins.json import DataClassJSONMixin
@@ -32,10 +32,10 @@ class FakeAuth(AbstractAuth):
 async def test_get_response(auth_cb: AuthCallback) -> None:
     """Test post that returns json."""
 
-    async def handler(request: aiohttp.web.Request) -> aiohttp.web.Response:
+    async def handler(request: web.Request) -> web.Response:
         body = await request.json()
         assert body == {"client_id": "some-client-id"}
-        return aiohttp.web.json_response(
+        return web.json_response(
             {
                 "some-key": "some-value",
             }
@@ -49,8 +49,8 @@ async def test_get_response(auth_cb: AuthCallback) -> None:
 async def test_get_json_response_unexpected(auth_cb: AuthCallback) -> None:
     """Test json response with wrong response type."""
 
-    async def handler(_: aiohttp.web.Request) -> aiohttp.web.Response:
-        return aiohttp.web.json_response(["value1", "value2"])
+    async def handler(_: web.Request) -> web.Response:
+        return web.json_response(["value1", "value2"])
 
     @dataclass
     class Response(DataClassJSONMixin):
@@ -66,10 +66,10 @@ async def test_get_json_response_unexpected(auth_cb: AuthCallback) -> None:
 async def test_get_json_response(auth_cb: AuthCallback) -> None:
     """Test post that returns json."""
 
-    async def handler(request: aiohttp.web.Request) -> aiohttp.web.Response:
+    async def handler(request: web.Request) -> web.Response:
         body = await request.json()
         assert body == {"client_id": "some-client-id"}
-        return aiohttp.web.json_response(
+        return web.json_response(
             {
                 "some-key": "some-value",
             }
@@ -85,10 +85,10 @@ async def test_get_json_response(auth_cb: AuthCallback) -> None:
 async def test_post_json_response(auth_cb: AuthCallback) -> None:
     """Test post that returns json."""
 
-    async def handler(request: aiohttp.web.Request) -> aiohttp.web.Response:
+    async def handler(request: web.Request) -> web.Response:
         body = await request.json()
         assert body == {"client_id": "some-client-id"}
-        return aiohttp.web.json_response(
+        return web.json_response(
             {
                 "some-key": "some-value",
             }
@@ -104,8 +104,8 @@ async def test_post_json_response(auth_cb: AuthCallback) -> None:
 async def test_post_json_response_unexpected(auth_cb: AuthCallback) -> None:
     """Test post that returns wrong json type."""
 
-    async def handler(_: aiohttp.web.Request) -> aiohttp.web.Response:
-        return aiohttp.web.json_response(["value1", "value2"])
+    async def handler(_: web.Request) -> web.Response:
+        return web.json_response(["value1", "value2"])
 
     auth = await auth_cb([("/some-path", handler)])
 
@@ -116,8 +116,8 @@ async def test_post_json_response_unexpected(auth_cb: AuthCallback) -> None:
 async def test_post_json_response_unexpected_text(auth_cb: AuthCallback) -> None:
     """Test post that returns unexpected format."""
 
-    async def handler(_: aiohttp.web.Request) -> aiohttp.web.Response:
-        return aiohttp.web.Response(text="body")
+    async def handler(_: web.Request) -> web.Response:
+        return web.Response(text="body")
 
     auth = await auth_cb([("/some-path", handler)])
 
@@ -128,8 +128,8 @@ async def test_post_json_response_unexpected_text(auth_cb: AuthCallback) -> None
 async def test_get_json_response_bad_request(auth_cb: AuthCallback) -> None:
     """Test error handling with detailed json response."""
 
-    async def handler(_: aiohttp.web.Request) -> aiohttp.web.Response:
-        return aiohttp.web.json_response(
+    async def handler(_: web.Request) -> web.Response:
+        return web.json_response(
             {
                 "error": {
                     "errors": [
@@ -186,8 +186,8 @@ async def test_get_json_response_bad_request(auth_cb: AuthCallback) -> None:
 async def test_unavailable_error(auth_cb: AuthCallback) -> None:
     """Test of basic request/response handling."""
 
-    async def handler(_: aiohttp.web.Request) -> aiohttp.web.Response:
-        return aiohttp.web.Response(status=500)
+    async def handler(_: web.Request) -> web.Response:
+        return web.Response(status=500)
 
     auth = await auth_cb([("/some-path", handler)])
 
@@ -198,8 +198,8 @@ async def test_unavailable_error(auth_cb: AuthCallback) -> None:
 async def test_forbidden_error(auth_cb: AuthCallback) -> None:
     """Test request/response handling for 403 status."""
 
-    async def handler(_: aiohttp.web.Request) -> aiohttp.web.Response:
-        return aiohttp.web.json_response(
+    async def handler(_: web.Request) -> web.Response:
+        return web.json_response(
             {
                 "error": {
                     "code": 403,
@@ -224,8 +224,8 @@ async def test_forbidden_error(auth_cb: AuthCallback) -> None:
 async def test_error_detail_parse_error(auth_cb: AuthCallback) -> None:
     """Test request/response handling for 403 status."""
 
-    async def handler(_: aiohttp.web.Request) -> aiohttp.web.Response:
-        return aiohttp.web.Response(status=403, text="Plain text error message")
+    async def handler(_: web.Request) -> web.Response:
+        return web.Response(status=403, text="Plain text error message")
 
     auth = await auth_cb([("/some-path", handler)])
 
@@ -238,8 +238,8 @@ async def test_error_detail_parse_error(auth_cb: AuthCallback) -> None:
 async def test_invalid_argument(auth_cb: AuthCallback) -> None:
     """Test request/response handling for 403 status."""
 
-    async def handler(_: aiohttp.web.Request) -> aiohttp.web.Response:
-        return aiohttp.web.json_response(
+    async def handler(_: web.Request) -> web.Response:
+        return web.json_response(
             {
                 "error": {
                     "code": 400,
