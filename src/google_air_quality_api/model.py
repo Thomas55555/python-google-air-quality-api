@@ -1,38 +1,25 @@
 """Google Photos Library API Data Model."""
 
-from collections.abc import AsyncIterator, Awaitable, Callable
 from dataclasses import dataclass, field
-from http import HTTPStatus
-from typing import Any, Self
 from datetime import datetime
-from mashumaro import DataClassDictMixin, field_options
-from mashumaro.mixins.json import DataClassJSONMixin
+from typing import Any
 
-__all__ = [
-    "ListMediaItemResult",
-    "MediaItem",
-    "MediaMetadata",
-    "Photo",
-    "Video",
-    "ContributorInfo",
-    "UploadResult",
-    "NewMediaItem",
-    "SimpleMediaItem",
-    "CreateMediaItemsResult",
-    "NewMediaItemResult",
-    "Status",
-    "UserInfoResult",
-]
+from mashumaro import DataClassDictMixin
+from mashumaro.mixins.json import DataClassJSONMixin
 
 
 @dataclass
 class Concentration(DataClassDictMixin):
+    """Represents a pollutant concentration."""
+
     value: float
     units: str
 
 
 @dataclass
 class Pollutant(DataClassDictMixin):
+    """Represents a pollutant with metadata."""
+
     code: str
     display_name: str = field(metadata={"alias": "displayName"})
     full_name: str = field(metadata={"alias": "fullName"})
@@ -40,18 +27,22 @@ class Pollutant(DataClassDictMixin):
 
 
 class PollutantList(list[Pollutant]):
-    """Ermöglicht Zugriff auf Einträge per Attribut .<code>"""
+    """Allows attribute access by pollutant code."""
 
     def __getattr__(self, name: str) -> Pollutant:
+        """Enable dynamic access to pollutants via attribute name (case-insensitive)."""
         name = name.lower()
         for pollutant in self:
             if pollutant.code.lower() == name:
                 return pollutant
-        raise AttributeError(f"No pollutant named {name!r}")
+        message = f"No pollutant named {name!r}"
+        raise AttributeError(message)
 
 
 @dataclass
 class Color(DataClassDictMixin):
+    """Represents RGB color components."""
+
     red: float | None = None
     green: float | None = None
     blue: float | None = None
@@ -59,6 +50,8 @@ class Color(DataClassDictMixin):
 
 @dataclass
 class Index(DataClassDictMixin):
+    """Represents an air quality index entry."""
+
     code: str
     display_name: str = field(metadata={"alias": "displayName"})
     color: Color
@@ -69,18 +62,22 @@ class Index(DataClassDictMixin):
 
 
 class IndexList(list[Index]):
-    """Ermöglicht Zugriff auf Einträge per Attribut .<code>"""
+    """Allows attribute access by index code."""
 
     def __getattr__(self, name: str) -> Index:
+        """Return the Index with the matching code, case-insensitive."""
         name = name.lower()
         for idx in self:
             if idx.code.lower() == name:
                 return idx
-        raise AttributeError(f"No index named {name!r}")
+        message = f"No index named {name!r}"
+        raise AttributeError(message)
 
 
 @dataclass
 class AirQualityData(DataClassJSONMixin):
+    """Holds air quality data with timestamp and region."""
+
     date_time: datetime = field(metadata={"alias": "dateTime"})
     region_code: str = field(metadata={"alias": "regionCode"})
     _indexes: list[Index] = field(metadata={"alias": "indexes"})
@@ -88,11 +85,12 @@ class AirQualityData(DataClassJSONMixin):
 
     @property
     def indexes(self) -> IndexList:
-        """Gibt bei jedem Zugriff eine IndexList zurück."""
+        """Returns list of indexes with attribute access."""
         return IndexList(self._indexes)
 
     @property
     def pollutants(self) -> PollutantList:
+        """Returns list of pollutants with attribute access."""
         return PollutantList(self._pollutants)
 
 

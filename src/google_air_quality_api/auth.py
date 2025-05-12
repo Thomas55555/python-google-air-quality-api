@@ -15,9 +15,9 @@ from mashumaro.mixins.json import DataClassJSONMixin
 
 from .const import LIBRARY_API_URL
 from .exceptions import (
-    ApiException,
-    ApiForbiddenException,
-    AuthException,
+    ApiError,
+    ApiForbiddenError,
+    AuthError,
     NoDataForLocationError,
 )
 from .model import Error, ErrorResponse
@@ -32,6 +32,8 @@ CONTENT_TYPE = "Content-Type"
 ERROR = "error"
 STATUS = "status"
 MESSAGE = "message"
+MALFORMED_RESPONSE = "Server returned malformed response"
+ERROR_CONNECTING = "Error connecting to API"
 
 _T = TypeVar("_T", bound=DataClassJSONMixin)
 
@@ -42,7 +44,9 @@ class AbstractAuth(ABC):
     Provides an asyncio interface around the blocking client library.
     """
 
-    def __init__(self, websession: aiohttp.ClientSession, host: str | None = None):
+    def __init__(
+        self, websession: aiohttp.ClientSession, host: str | None = None
+    ) -> None:
         """Initialize the auth."""
         self._websession = websession
         self._host = host or LIBRARY_API_URL
@@ -63,14 +67,13 @@ class AbstractAuth(ABC):
         try:
             access_token = await self.async_get_access_token()
         except ClientError as err:
-            raise AuthException(f"Access token failure: {err}") from err
-        _LOGGER.debug("3")
+            raise AuthError(err) from err
         if headers is None:
             headers = {}
         if AUTHORIZATION_HEADER not in headers:
             headers[AUTHORIZATION_HEADER] = f"Bearer {access_token}"
             headers[CONTENT_TYPE] = "application/json"
-        if not (url.startswith("http://") or url.startswith("https://")):
+        if not url.startswith(("http://", "https://")):
             url = f"{self._host}/{url}"
         _LOGGER.debug("request[%s]=%s %s", method, url, kwargs)
         if method != "get" and "json" in kwargs:
@@ -86,7 +89,7 @@ class AbstractAuth(ABC):
         try:
             resp = await self.request("get", url, **kwargs)
         except ClientError as err:
-            raise ApiException(f"Error connecting to API: {err}") from err
+            raise ApiError(err) from err
         return await AbstractAuth._raise_for_status(resp)
 
     async def get_json(
@@ -100,19 +103,22 @@ class AbstractAuth(ABC):
         try:
             result = await resp.text()
         except ClientError as err:
-            raise ApiException("Server returned malformed response") from err
+            message = f"{ERROR_CONNECTING}: {err}"
+            raise ApiError(message) from err
         _LOGGER.debug("response=%s", result)
         try:
             return data_cls.from_json(result)
         except (LookupError, ValueError) as err:
-            raise ApiException(f"Server return malformed response: {result}") from err
+            message = f"{MALFORMED_RESPONSE}: {err}"
+            raise ApiError(message) from err
 
     async def post(self, url: str, **kwargs: Any) -> aiohttp.ClientResponse:
         """Make a post request."""
         try:
             resp = await self.request("post", url, **kwargs)
         except ClientError as err:
-            raise ApiException(f"Error connecting to API: {err}") from err
+            message = f"{ERROR_CONNECTING}: {err}"
+            raise ApiError(message) from err
         return await AbstractAuth._raise_for_status(resp)
 
     async def post_json(self, url: str, data_cls: type[_T], **kwargs: Any) -> _T:
@@ -121,13 +127,14 @@ class AbstractAuth(ABC):
         try:
             result = await resp.text()
         except ClientError as err:
-            raise ApiException("Server returned malformed response") from err
+            message = f"{ERROR_CONNECTING}: {err}"
+            raise ApiError(message) from err
         _LOGGER.debug("response=%s", result)
-        return data_cls.from_json(result)
         try:
             return data_cls.from_json(result)
         except (LookupError, ValueError) as err:
-            raise ApiException(f"Server return malformed response: {result}") from err
+            message = f"{MALFORMED_RESPONSE}: {err}"
+            raise ApiError(message) from err
 
     @classmethod
     async def _raise_for_status(
@@ -142,19 +149,20 @@ class AbstractAuth(ABC):
             if error_detail:
                 error_message += f": {error_detail}"
                 if "Information is unavailable for this location" in error_message:
-                    raise NoDataForLocationError(error_message)
+                    raise NoDataForLocationError(error_message) from err
             if err.status == HTTPStatus.FORBIDDEN:
-                raise ApiForbiddenException(error_message)
+                raise ApiForbiddenError(error_message) from err
             if err.status == HTTPStatus.UNAUTHORIZED:
-                raise AuthException(error_message)
-            raise ApiException(error_message) from err
+                raise AuthError(error_message) from err
+            raise ApiError(error_message) from err
         except aiohttp.ClientError as err:
-            raise ApiException(f"Error from API: {err}") from err
+            message = f"Error from API: {err}"
+            raise ApiError(message) from err
         return resp
 
     @classmethod
     async def _error_detail(cls, resp: aiohttp.ClientResponse) -> Error | None:
-        """Returns an error message string from the API response."""
+        """Return an error message string from the API response."""
         if resp.status < 400:
             return None
         try:

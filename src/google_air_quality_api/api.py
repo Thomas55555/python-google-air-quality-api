@@ -39,13 +39,9 @@ for item in result.media_items:
 """
 
 import logging
-from typing import Any
-
-from aiohttp.client_exceptions import ClientError
 
 from .auth import AbstractAuth
-from .exceptions import GooglePhotosApiError
-from .model import UserInfoResult, AirQualityData
+from .model import AirQualityData, UserInfoResult
 
 __all__ = [
     "GooglePhotosLibraryApi",
@@ -73,7 +69,7 @@ class GooglePhotosLibraryApi:
         """Initialize GooglePhotosLibraryApi."""
         self._auth = auth
 
-    async def get_media_item(self, lat, long) -> AirQualityData:
+    async def async_air_quality(self, lat: float, long: float) -> AirQualityData:
         """Get all MediaItem resources."""
         _LOGGER.debug("get_media_item")
         payload = {

@@ -5,15 +5,15 @@ class GooglePhotosApiError(Exception):
     """Error talking to the Google Photos API."""
 
 
-class ApiException(GooglePhotosApiError):
+class ApiError(GooglePhotosApiError):
     """Raised during problems talking to the API."""
 
 
-class AuthException(GooglePhotosApiError):
+class AuthError(GooglePhotosApiError):
     """Raised due to auth problems talking to API."""
 
 
-class ApiForbiddenException(GooglePhotosApiError):
+class ApiForbiddenError(GooglePhotosApiError):
     """Raised due to permission errors talking to API."""
 
 

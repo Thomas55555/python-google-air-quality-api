@@ -9,7 +9,7 @@ from mashumaro import field_options
 from mashumaro.mixins.json import DataClassJSONMixin
 
 from google_air_quality_api.auth import AbstractAuth
-from google_air_quality_api.exceptions import ApiException, ApiForbiddenException
+from google_air_quality_api.exceptions import ApiError, ApiForbiddenError
 
 from .conftest import AuthCallback
 
@@ -59,7 +59,7 @@ async def test_get_json_response_unexpected(auth_cb: AuthCallback) -> None:
         items: list[str]
 
     auth = await auth_cb([("/some-path", handler)])
-    with pytest.raises(ApiException):
+    with pytest.raises(ApiError):
         await auth.get_json("some-path", data_cls=Response)
 
 
@@ -109,7 +109,7 @@ async def test_post_json_response_unexpected(auth_cb: AuthCallback) -> None:
 
     auth = await auth_cb([("/some-path", handler)])
 
-    with pytest.raises(ApiException):
+    with pytest.raises(ApiError):
         await auth.post_json("some-path", data_cls=Response)
 
 
@@ -121,7 +121,7 @@ async def test_post_json_response_unexpected_text(auth_cb: AuthCallback) -> None
 
     auth = await auth_cb([("/some-path", handler)])
 
-    with pytest.raises(ApiException):
+    with pytest.raises(ApiError):
         await auth.post_json("some-path", data_cls=Response)
 
 
@@ -151,7 +151,7 @@ async def test_get_json_response_bad_request(auth_cb: AuthCallback) -> None:
     auth = await auth_cb([("/some-path", handler)])
 
     with pytest.raises(
-        ApiException,
+        ApiError,
         match=re.escape(
             "Bad Request response from API (400): 400: The specified time range is empty."
         ),
@@ -159,7 +159,7 @@ async def test_get_json_response_bad_request(auth_cb: AuthCallback) -> None:
         await auth.get("some-path")
 
     with pytest.raises(
-        ApiException,
+        ApiError,
         match=re.escape(
             "Bad Request response from API (400): 400: The specified time range is empty."
         ),
@@ -167,7 +167,7 @@ async def test_get_json_response_bad_request(auth_cb: AuthCallback) -> None:
         await auth.get_json("some-path", data_cls=Response)
 
     with pytest.raises(
-        ApiException,
+        ApiError,
         match=re.escape(
             "Bad Request response from API (400): 400: The specified time range is empty."
         ),
@@ -175,7 +175,7 @@ async def test_get_json_response_bad_request(auth_cb: AuthCallback) -> None:
         await auth.post("some-path")
 
     with pytest.raises(
-        ApiException,
+        ApiError,
         match=re.escape(
             "Bad Request response from API (400): 400: The specified time range is empty."
         ),
@@ -191,7 +191,7 @@ async def test_unavailable_error(auth_cb: AuthCallback) -> None:
 
     auth = await auth_cb([("/some-path", handler)])
 
-    with pytest.raises(ApiException):
+    with pytest.raises(ApiError):
         await auth.get_json("some-path", data_cls=Response)
 
 
@@ -213,7 +213,7 @@ async def test_forbidden_error(auth_cb: AuthCallback) -> None:
     auth = await auth_cb([("/some-path", handler)])
 
     with pytest.raises(
-        ApiForbiddenException,
+        ApiForbiddenError,
         match=re.escape(
             "Forbidden response from API (403): PERMISSION_DENIED (403): Google Photos API has not been used in project 0 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/library/photoslibrary.googleapis.com/overview?project=0 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
         ),
@@ -230,7 +230,7 @@ async def test_error_detail_parse_error(auth_cb: AuthCallback) -> None:
     auth = await auth_cb([("/some-path", handler)])
 
     with pytest.raises(
-        ApiForbiddenException, match=re.escape("Forbidden response from API (403)")
+        ApiForbiddenError, match=re.escape("Forbidden response from API (403)")
     ):
         await auth.get_json("some-path", data_cls=Response)
 
@@ -264,7 +264,7 @@ async def test_invalid_argument(auth_cb: AuthCallback) -> None:
     auth = await auth_cb([("/some-path", handler)])
 
     with pytest.raises(
-        ApiException,
+        ApiError,
         match=re.escape(
             "Bad Request response from API (400): INVALID_ARGUMENT (400): Request contains an invalid argument."
         )

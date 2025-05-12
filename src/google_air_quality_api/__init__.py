@@ -1,10 +1,8 @@
-"""
-.. include:: ../README.md
-"""
+"""Python wrapper for the Google Air Quality API."""
 
 __all__ = [
     "api",
-    "model",
     "auth",
     "exceptions",
+    "model",
 ]
