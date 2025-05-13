@@ -3,3 +3,4 @@ __pycache__/
 .coverage
 secrets.yaml
 .venv
+oauth_token.json
