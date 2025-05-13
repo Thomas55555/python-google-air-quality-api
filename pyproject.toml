@@ -42,6 +42,11 @@ packages = [
 ]
 version = "0.0.0"
 
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "pep440"
+metadata = false
 
 [tool.poetry.requires-plugins]
 poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = ["plugin"] }
@@ -127,6 +132,3 @@ fail_under = 50
 [tool.coverage.run]
 plugins = ["covdefaults"]
 source = ["google_air_quality_api"]
-
-[tool.poetry-dynamic-versioning]
-enable = true
