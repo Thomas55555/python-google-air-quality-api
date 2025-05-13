@@ -1,4 +1,4 @@
-"""API for Google Photos OAuth.
+"""API for Google Air Quality OAuth.
 
 Callers subclass this to provide an asyncio implementation that refreshes
 authentication tokens.
@@ -13,7 +13,7 @@ import aiohttp
 from aiohttp.client_exceptions import ClientError
 from mashumaro.mixins.json import DataClassJSONMixin
 
-from .const import LIBRARY_API_URL
+from .const import API_BASE_URL
 from .exceptions import (
     ApiError,
     ApiForbiddenError,
@@ -39,7 +39,7 @@ _T = TypeVar("_T", bound=DataClassJSONMixin)
 
 
 class AbstractAuth(ABC):
-    """Base class for Google Photos authentication library.
+    """Base class for Google Air Quality authentication library.
 
     Provides an asyncio interface around the blocking client library.
     """
@@ -49,7 +49,7 @@ class AbstractAuth(ABC):
     ) -> None:
         """Initialize the auth."""
         self._websession = websession
-        self._host = host or LIBRARY_API_URL
+        self._host = host or API_BASE_URL
 
     @abstractmethod
     async def async_get_access_token(self) -> str:
