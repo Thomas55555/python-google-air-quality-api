@@ -1,24 +1,21 @@
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
 
-[tool.poetry]
+[project]
 name = "google_air_quality_api"
-# The version is set by GH action on release
-version = "0.0.0"
-description = "MPython module to talk to Husqvarna Automower."
-authors = [
-    "Thomas Peter Protzner <thomas.protzner@gmail.com>",
-]
-license = "MIT"
+description = "Python module to talk to Husqvarna Automower."
 readme = "README.md"
-packages = [
-    { include = "google_air_quality_api", from = "src" },
+license = { text = "MIT" }
+authors = [
+    { name = "Thomas Peter Protzner", email = "thomas.protzner@gmail.com" },
 ]
-homepage = "https://github.com/Thomas55555/python-google-air-quality-api"
-repository = "https://github.com/Thomas55555/python-google-air-quality-api"
-documentation = "https://github.com/Thomas55555/python-google-air-quality-api"
-keywords = ["Husqvarna", "Automower", "api", "async", "client"]
+requires-python = ">=3.11"
+dependencies = [
+    "aiohttp>=3.9.3,<4.0.0",
+    "mashumaro>=3.12,<4.0.0"
+]
+keywords = ["air", "quality", "api", "async", "client", "google"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Framework :: AsyncIO",
@@ -28,16 +25,26 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3",
-  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 
-[tool.poetry.urls]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/Thomas55555/python-google-air-quality-api"
+Repository = "https://github.com/Thomas55555/python-google-air-quality-api"
+Documentation = "https://github.com/Thomas55555/python-google-air-quality-api"
 Issues = "https://github.com/Thomas55555/aioautomower/issues"
 
-[tool.poetry.dependencies]
-python = "^3.11"
-aiohttp = "^3.9.3"
-mashumaro = "^3.12"
+[tool.poetry]
+packages = [
+    { include = "google_air_quality_api", from = "src" },
+]
+version = "0.0.0"
+
+
+[tool.poetry.requires-plugins]
+poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = ["plugin"] }
 
 [tool.poetry.group.example]
 optional = true
@@ -120,3 +127,6 @@ fail_under = 50
 [tool.coverage.run]
 plugins = ["covdefaults"]
 source = ["google_air_quality_api"]
+
+[tool.poetry-dynamic-versioning]
+enable = true
