@@ -4,31 +4,17 @@ build-backend = "poetry_dynamic_versioning.backend"
 
 [project]
 name = "google_air_quality_api"
-description = "Python module to talk to Husqvarna Automower."
+version = "0.0.0"
+description = "Python module to talk to Google Air Quality API."
 readme = "README.md"
 license = { text = "MIT" }
-authors = [
-    { name = "Thomas Peter Protzner", email = "thomas.protzner@gmail.com" },
-]
+authors  = [{ name = "Thomas Peter Protzner", email = "thomas.protzner@gmail.com" }]
 requires-python = ">=3.11"
 dependencies = [
     "aiohttp>=3.9.3,<4.0.0",
-    "mashumaro>=3.12,<4.0.0"
+    "mashumaro>=3.12,<4.0.0",
 ]
-keywords = ["air", "quality", "api", "async", "client", "google"]
-classifiers = [
-  "Development Status :: 5 - Production/Stable",
-  "Framework :: AsyncIO",
-  "Intended Audience :: Developers",
-  "Natural Language :: English",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.13",
-  "Programming Language :: Python :: 3",
-  "Topic :: Software Development :: Libraries :: Python Modules"
-]
-
-dynamic = ["version"]
+packages     = [{ include = "google_air_quality_api", from = "src" }]
 
 [project.urls]
 Homepage = "https://github.com/Thomas55555/python-google-air-quality-api"
@@ -36,16 +22,10 @@ Repository = "https://github.com/Thomas55555/python-google-air-quality-api"
 Documentation = "https://github.com/Thomas55555/python-google-air-quality-api"
 Issues = "https://github.com/Thomas55555/aioautomower/issues"
 
-[tool.poetry]
-packages = [
-    { include = "google_air_quality_api", from = "src" },
-]
-version = "0.0.0"
-
 [tool.poetry-dynamic-versioning]
 enable = true
 vcs = "git"
-style = "semver"
+style = "simple"
 metadata = false
 
 [tool.poetry.requires-plugins]
