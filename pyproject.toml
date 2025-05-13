@@ -45,7 +45,7 @@ version = "0.0.0"
 [tool.poetry-dynamic-versioning]
 enable = true
 vcs = "git"
-style = "pep440"
+style = "semver"
 metadata = false
 
 [tool.poetry.requires-plugins]
