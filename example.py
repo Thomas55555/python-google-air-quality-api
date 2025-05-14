@@ -6,7 +6,7 @@ from google_air_quality_api.api import GoogleAirQualityApi
 from google_air_quality_api.auth import AbstractAuth
 from google_air_quality_api.const import API_BASE_URL
 import aiohttp
-import aiofiles  # ty:ignore[unresolved-import]
+import aiofiles
 import yaml
 
 # Fill out the secrets in secrets.yaml, you can find an example
