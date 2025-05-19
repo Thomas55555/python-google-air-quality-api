@@ -2,7 +2,7 @@
 
 [![codecov](https://codecov.io/gh/Thomas55555/python-google-air-quality-api/graph/badge.svg?token=mCoquN2d11)](https://codecov.io/gh/Thomas55555/python-google-air-quality-api)
 [![Python Versions](https://img.shields.io/pypi/pyversions/google_air_quality_api)](https://pypi.org/project/google_air_quality_api/)
-[![License](https://img.shields.io/github/license/Thomas55555/google_air_quality_api.svg)](LICENSE.md)
+[![License](https://img.shields.io/github/license/Thomas55555/python-google-air-quality-api.svg)](LICENSE.md)
 
 A python client library for the Google Air Quality API.
 
