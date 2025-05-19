@@ -12,7 +12,6 @@ _LOGGER = logging.getLogger(__name__)
 
 USERINFO_API = "https://www.googleapis.com/oauth2/v1/userinfo"
 CURRENT_CONDITIONS = f"{API_BASE_URL}/currentConditions:lookup"
-HEAT_MAP = f"{API_BASE_URL}/mapTypes/US_AQI/heatmapTiles/6/33/21"
 
 
 def latlon_to_tile(lat: float, lon: float, zoom: int) -> tuple[int, int]:
@@ -25,7 +24,7 @@ def latlon_to_tile(lat: float, lon: float, zoom: int) -> tuple[int, int]:
 
 
 class GoogleAirQualityApi:
-    """The Google Photos library api client."""
+    """The Google Air Quality library api client."""
 
     def __init__(self, auth: AbstractAuth) -> None:
         """Initialize GoogleAirQualityApi."""
