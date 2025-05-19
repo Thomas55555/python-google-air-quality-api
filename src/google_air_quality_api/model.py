@@ -1,4 +1,4 @@
-"""Google Photos Library API Data Model."""
+"""Google Air Quality Library API Data Model."""
 
 from dataclasses import dataclass, field
 from datetime import datetime

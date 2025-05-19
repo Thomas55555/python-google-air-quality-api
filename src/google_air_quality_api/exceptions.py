@@ -1,21 +1,21 @@
-"""Exceptions for Google Photos API calls."""
+"""Exceptions for Google Air Quality API calls."""
 
 
-class GooglePhotosApiError(Exception):
-    """Error talking to the Google Photos API."""
+class GoogleAirQuailityApiError(Exception):
+    """Error talking to the Google Air Quality API."""
 
 
-class ApiError(GooglePhotosApiError):
+class ApiError(GoogleAirQuailityApiError):
     """Raised during problems talking to the API."""
 
 
-class AuthError(GooglePhotosApiError):
+class AuthError(GoogleAirQuailityApiError):
     """Raised due to auth problems talking to API."""
 
 
-class ApiForbiddenError(GooglePhotosApiError):
+class ApiForbiddenError(GoogleAirQuailityApiError):
     """Raised due to permission errors talking to API."""
 
 
-class NoDataForLocationError(GooglePhotosApiError):
+class NoDataForLocationError(GoogleAirQuailityApiError):
     """Raised due to permission errors talking to API."""
