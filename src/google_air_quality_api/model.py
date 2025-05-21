@@ -3,9 +3,17 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
+from re import sub
 
-from mashumaro import DataClassDictMixin
 from mashumaro.mixins.json import DataClassJSONMixin
+from mashumaro import DataClassDictMixin, field_options
+
+
+def generate_snake_case_key(value):
+    """Make a snake_case key from a string."""
+    value = value.lower()  # Alles klein schreiben
+    value = sub(r"\s+", "_", value)  # Leerzeichen durch Unterstriche ersetzen
+    return value
 
 
 @dataclass
@@ -55,7 +63,10 @@ class Index(DataClassDictMixin):
     code: str
     display_name: str = field(metadata={"alias": "displayName"})
     color: Color
-    category: str
+    category: str = field(
+        metadata=field_options(deserialize=lambda x: generate_snake_case_key(x))
+    )
+
     dominant_pollutant: str = field(metadata={"alias": "dominantPollutant"})
     aqi: int | None = None
     aqi_display: str | None = field(default=None, metadata={"alias": "aqiDisplay"})
