@@ -2,9 +2,10 @@
 
 from dataclasses import dataclass, field
 from datetime import datetime
+from re import sub
 from typing import Any
 
-from mashumaro import DataClassDictMixin
+from mashumaro import DataClassDictMixin, field_options
 from mashumaro.mixins.json import DataClassJSONMixin
 
 
@@ -55,7 +56,9 @@ class Index(DataClassDictMixin):
     code: str
     display_name: str = field(metadata={"alias": "displayName"})
     color: Color
-    category: str
+    category: str = field(
+        metadata=field_options(deserialize=lambda x: sub(r"\s+", "_", x.lower()))
+    )
     dominant_pollutant: str = field(metadata={"alias": "dominantPollutant"})
     aqi: int | None = None
     aqi_display: str | None = field(default=None, metadata={"alias": "aqiDisplay"})
