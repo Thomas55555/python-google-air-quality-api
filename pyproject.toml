@@ -55,7 +55,7 @@ time-machine = "2.16.0"
 types-pyyaml = "^6.0.12.20241230"
 yamllint = "1.37.1"
 pytest-aiohttp = "1.1.0"
-ty = "0.0.1a5"
+ty = "0.0.1a6"
 
 [tool.pytest.ini_options]
 addopts = "--cov=google_air_quality_api --cov-report=term-missing -vv"
