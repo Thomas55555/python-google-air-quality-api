@@ -3,8 +3,8 @@
 import re
 from dataclasses import dataclass, field
 
-from aiohttp import web
 import pytest
+from aiohttp import web
 from mashumaro import field_options
 from mashumaro.mixins.json import DataClassJSONMixin
 

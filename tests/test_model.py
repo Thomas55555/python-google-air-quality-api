@@ -3,9 +3,8 @@
 from dataclasses import fields
 
 from syrupy.assertion import SnapshotAssertion
-import pytest
+
 from google_air_quality_api.model import AirQualityData, AQICategoryMapping
-from typing import Any
 
 
 def test_air_quality_snapshot(

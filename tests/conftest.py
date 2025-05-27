@@ -1,16 +1,15 @@
 """Libraries used in tests."""
 
+import json
 from collections.abc import Awaitable, Callable
+from pathlib import Path
+from typing import Any
 
-from aiohttp import web
 import pytest
-from aiohttp import ClientSession
+from aiohttp import ClientSession, web
 from aiohttp.web import Application
 
 from google_air_quality_api.auth import AbstractAuth
-from pathlib import Path
-from typing import Any
-import json
 
 PATH_PREFIX = "/path-prefix"
 
@@ -44,6 +43,8 @@ class FakeAuth(AbstractAuth):
 def mock_auth_fixture(
     aiohttp_client: Callable[[Application], Awaitable[ClientSession]],
 ) -> AuthCallback:
+    """Create a test authentication library with the specified handler."""
+
     async def create_auth(
         handlers: list[tuple[str, Callable[[web.Request], Awaitable[web.Response]]]],
     ) -> AbstractAuth:

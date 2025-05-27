@@ -3,9 +3,9 @@
 from collections.abc import AsyncGenerator
 from typing import Any
 from unittest.mock import patch
-import aiohttp
-from aiohttp import web
+
 import pytest
+from aiohttp import web
 
 from google_air_quality_api.api import GoogleAirQualityApi
 from google_air_quality_api.model import (
@@ -29,7 +29,7 @@ async def mock_get_user_info() -> dict[str, Any]:
 
 @pytest.fixture(name="requests")
 async def mock_requests() -> list[web.Request]:
-    """Fixture for fake create media items responses."""
+    """Fixture for fake air quality data responses."""
     return []
 
 
@@ -66,8 +66,6 @@ async def mock_api(
 
 async def test_get_user_info(
     api: GoogleAirQualityApi,
-    get_user_info: dict[str, Any],
-    requests: list[web.Request],
 ) -> None:
     """Test get user info API."""
     result = await api.get_user_info()
@@ -79,8 +77,6 @@ async def test_get_user_info(
 
 async def test_async_air_quality_data(
     api: GoogleAirQualityApi,
-    get_user_info: dict[str, Any],
-    requests: list[web.Request],
 ) -> None:
     """Test get user info API."""
     result = await api.async_air_quality(1, 2)

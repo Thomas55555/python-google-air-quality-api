@@ -67,7 +67,7 @@ show-fixes = true
 src = ["./src"]
 target-version = "py311"
 line-length = 88
-include = ["src/**/*.py"]
+include = ["src/**/*.py", "tests/**/*.py"]
 
 
 [tool.ruff.lint]
@@ -77,6 +77,8 @@ ignore = [
   "D213", # Conflicts with other rules
   "D417", # False positives in some occasions
   "PLR2004", # Just annoying, not really useful
+  "S101", # False positives in tests
+  "E501", # Temporary for tests
 
   # Conflicts with the Ruff formatter
   "COM812",
