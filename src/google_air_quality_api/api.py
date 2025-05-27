@@ -11,7 +11,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 USERINFO_API = "https://www.googleapis.com/oauth2/v1/userinfo"
-CURRENT_CONDITIONS = f"{API_BASE_URL}/currentConditions:lookup"
+CURRENT_CONDITIONS = "currentConditions:lookup"
 
 
 def latlon_to_tile(lat: float, lon: float, zoom: int) -> tuple[int, int]:
