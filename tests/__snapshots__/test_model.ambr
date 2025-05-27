@@ -1,11 +1,11 @@
 # serializer version: 1
-# name: test_mower_snapshot[_indexes]
+# name: test_air_quality_snapshot[_indexes]
   list([
     Index(code='uaqi', display_name='Universal AQI', color=Color(red=0.48235294, green=0.79607844, blue=0.2), category='good_air_quality', dominant_pollutant='o3', aqi=71, aqi_display='71'),
     Index(code='deu_uba', display_name='LQI (DE)', color=Color(red=0.3137255, green=0.8039216, blue=0.6666667), category='good_air_quality', dominant_pollutant='no2', aqi=None, aqi_display=None),
   ])
 # ---
-# name: test_mower_snapshot[_pollutants]
+# name: test_air_quality_snapshot[_pollutants]
   list([
     Pollutant(code='co', display_name='CO', full_name='Carbon monoxide', concentration=Concentration(value=191.97, units='PARTS_PER_BILLION')),
     Pollutant(code='no2', display_name='NO2', full_name='Nitrogen dioxide', concentration=Concentration(value=16.97, units='PARTS_PER_BILLION')),
@@ -15,7 +15,7 @@
     Pollutant(code='so2', display_name='SO2', full_name='Sulfur dioxide', concentration=Concentration(value=1.37, units='PARTS_PER_BILLION')),
   ])
 # ---
-# name: test_mower_snapshot[all_aqi_categories]
+# name: test_air_quality_snapshot[all_aqi_categories]
   dict({
     '10_33': '10-33% of guideline',
     '1_blue': '1 - Blue',
@@ -116,10 +116,10 @@
     'warning_air_pollution': 'Warning level air pollution',
   })
 # ---
-# name: test_mower_snapshot[date_time]
+# name: test_air_quality_snapshot[date_time]
   datetime.datetime(2025, 5, 25, 8, 0, tzinfo=datetime.timezone.utc)
 # ---
-# name: test_mower_snapshot[indexes_category_options]
+# name: test_air_quality_snapshot[indexes_category_options]
   list([
     list([
       'Excellent air quality',
@@ -137,6 +137,6 @@
     ]),
   ])
 # ---
-# name: test_mower_snapshot[region_code]
+# name: test_air_quality_snapshot[region_code]
   'de'
 # ---

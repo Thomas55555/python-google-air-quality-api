@@ -1,4 +1,4 @@
-"""Tests for Google Photos library API."""
+"""Tests for Google Air Quality library API."""
 
 from collections.abc import AsyncGenerator
 from typing import Any

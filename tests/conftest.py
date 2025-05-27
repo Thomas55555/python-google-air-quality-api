@@ -28,7 +28,7 @@ def load_fixture_json(filename: str) -> Any:
 
 @pytest.fixture(name="air_quality_data")
 def mock_air_quality_data() -> dict:
-    """Return snapshot assertion fixture with the Automower extension."""
+    """Return air quality data from deu_uba."""
     return load_fixture_json("deu_uba.json")
 
 

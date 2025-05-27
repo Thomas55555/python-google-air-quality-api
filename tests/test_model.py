@@ -1,4 +1,4 @@
-"""Tests for asynchronous Python client for aioautomower."""
+"""Snapshot tests for Google Air Quality API client."""
 
 from dataclasses import fields
 
@@ -7,11 +7,11 @@ import pytest
 from google_air_quality_api.model import AirQualityData, AQICategoryMapping
 from typing import Any
 
-MOWER_ID = "1234"
 
-
-def test_mower_snapshot(snapshot: SnapshotAssertion, air_quality_data) -> None:
-    """Testing a snapshot of a high feature mower."""
+def test_air_quality_snapshot(
+    snapshot: SnapshotAssertion, air_quality_data: dict
+) -> None:
+    """Testing a snapshot of air quality data."""
     data = AirQualityData.from_dict(air_quality_data)
 
     # 1) Snapshot jedes einzelnen Feldes
