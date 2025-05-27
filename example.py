@@ -8,7 +8,7 @@ from google_air_quality_api.const import API_BASE_URL
 import aiohttp
 import aiofiles
 import yaml
-
+import logging
 # Fill out the secrets in secrets.yaml, you can find an example
 # _secrets.yaml file, which has to be renamed after filling out the secrets.
 
@@ -28,12 +28,20 @@ OAUTH2_SCOPES = [
 
 TOKEN_FILE = Path("oauth_token.json")
 REDIRECT_URI = "http://localhost:8080/"
-SCOPE = "https://www.googleapis.com/auth/cloud-platform"
+SCOPE = " ".join(OAUTH2_SCOPES)
 
 LONGITUDE = secrets["LONGITUDE"]
 LATITUDE = secrets["LATITUDE"]
 ZOOM = 4
 OUTPUT_FILE = "air_quality.png"
+
+
+def configure_logging(level: int = logging.INFO) -> None:
+    """Configure logging with specified level."""
+    logging.basicConfig(
+        level=level,
+        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    )
 
 
 class AsyncTokenAuth(AbstractAuth):
@@ -107,6 +115,7 @@ class AsyncTokenAuth(AbstractAuth):
 
 
 async def main() -> None:
+    configure_logging(logging.DEBUG)
     async with aiohttp.ClientSession() as websession:
         api = GoogleAirQualityApi(AsyncTokenAuth(websession))
         response = await api.async_heatmap(LATITUDE, LONGITUDE, ZOOM)
@@ -119,6 +128,14 @@ async def main() -> None:
                 print(f"Picture saved as {OUTPUT_FILE}")
             else:
                 print(f"Error getting picture: {response.status}")
+
+            user = await api.get_user_info()
+            response = await api.async_air_quality(LATITUDE, LONGITUDE)
+            print("Air Quality Data:%s", response)
+            print("Air Quality Data:%s", response)
+
+            for idx in response.indexes:
+                print(idx.category_options)
 
 
 if __name__ == "__main__":
