@@ -7,12 +7,12 @@
 # ---
 # name: test_air_quality_snapshot[_pollutants]
   list([
-    Pollutant(code='co', display_name='CO', full_name='Carbon monoxide', concentration=Concentration(value=191.97, units='PARTS_PER_BILLION')),
-    Pollutant(code='no2', display_name='NO2', full_name='Nitrogen dioxide', concentration=Concentration(value=16.97, units='PARTS_PER_BILLION')),
-    Pollutant(code='o3', display_name='O3', full_name='Ozone', concentration=Concentration(value=35.17, units='PARTS_PER_BILLION')),
-    Pollutant(code='pm10', display_name='PM10', full_name='Inhalable particulate matter (<10µm)', concentration=Concentration(value=13.53, units='MICROGRAMS_PER_CUBIC_METER')),
-    Pollutant(code='pm25', display_name='PM2.5', full_name='Fine particulate matter (<2.5µm)', concentration=Concentration(value=4.61, units='MICROGRAMS_PER_CUBIC_METER')),
-    Pollutant(code='so2', display_name='SO2', full_name='Sulfur dioxide', concentration=Concentration(value=1.37, units='PARTS_PER_BILLION')),
+    Pollutant(code='co', display_name='CO', full_name='Carbon monoxide', concentration=Concentration(value=0.19197, units='ppm')),
+    Pollutant(code='no2', display_name='NO2', full_name='Nitrogen dioxide', concentration=Concentration(value=16.97, units='ppb')),
+    Pollutant(code='o3', display_name='O3', full_name='Ozone', concentration=Concentration(value=35.17, units='ppb')),
+    Pollutant(code='pm10', display_name='PM10', full_name='Inhalable particulate matter (<10µm)', concentration=Concentration(value=13.53, units='µg/m³')),
+    Pollutant(code='pm25', display_name='PM2.5', full_name='Fine particulate matter (<2.5µm)', concentration=Concentration(value=4.61, units='µg/m³')),
+    Pollutant(code='so2', display_name='SO2', full_name='Sulfur dioxide', concentration=Concentration(value=1.37, units='ppb')),
   ])
 # ---
 # name: test_air_quality_snapshot[all_aqi_categories]
