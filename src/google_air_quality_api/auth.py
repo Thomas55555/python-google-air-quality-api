@@ -63,7 +63,6 @@ class AbstractAuth(ABC):
         **kwargs: Any,
     ) -> aiohttp.ClientResponse:
         """Make a request."""
-        _LOGGER.debug("2")
         try:
             access_token = await self.async_get_access_token()
         except ClientError as err:
@@ -78,10 +77,6 @@ class AbstractAuth(ABC):
         _LOGGER.debug("request[%s]=%s %s", method, url, kwargs)
         if method != "get" and "json" in kwargs:
             _LOGGER.debug("request[post json]=%s", kwargs["json"])
-        _LOGGER.debug("4")
-        test = await self._websession.request(method, url, **kwargs, headers=headers)
-        _LOGGER.debug("test: %s", test)
-        _LOGGER.debug("headers: %s", headers)
         return await self._websession.request(method, url, **kwargs, headers=headers)
 
     async def get(self, url: str, **kwargs: Any) -> aiohttp.ClientResponse:
