@@ -13,15 +13,16 @@ def test_air_quality_snapshot(
     """Testing a snapshot of air quality data."""
     data = AirQualityData.from_dict(air_quality_data)
 
-    # 1) Snapshot jedes einzelnen Feldes
     for field in fields(data):
         field_name = field.name
         field_value = getattr(data, field_name)
         assert field_value == snapshot(name=f"{field_name}")
 
-    # 2) Zusätzlich: snapshotten der category_options aller Index-Einträge
     all_options = [idx.category_options for idx in data.indexes]
     assert all_options == snapshot(name="indexes_category_options")
+
+    all_pollutant_options = [idx.pollutant_options for idx in data.indexes]
+    assert all_pollutant_options == snapshot(name="indexes_pollutant_options")
 
     seen: dict[str, str] = {}
     for cat in AQICategoryMapping.get_all():

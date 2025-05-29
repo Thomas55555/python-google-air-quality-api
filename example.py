@@ -136,6 +136,7 @@ async def main() -> None:
 
             for idx in response.indexes:
                 print(idx.category_options)
+                print(idx.pollutant_options)
 
 
 if __name__ == "__main__":
