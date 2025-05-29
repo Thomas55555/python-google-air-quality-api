@@ -75,7 +75,7 @@ class AQICategoryMapping:
         "bgd_case": [
             AQICategory("good_air_quality", "Good air quality"),
             AQICategory("moderate_air_quality", "Moderate air quality"),
-            AQICategory("caution_air_quality", "Caution"),
+            AQICategory("caution", "Caution"),
             AQICategory("unhealthy_air_quality", "Unhealthy air quality"),
             AQICategory("very_unhealthy_air_quality", "Very Unhealthy air quality"),
             AQICategory(
@@ -376,19 +376,19 @@ class AQICategoryMapping:
             AQICategory("extremely_poor_air_quality", "Extremely poor air quality"),
         ],
         "mkd_moepp": [
-            AQICategory("very_low_air_polution", "Very low air pollution"),
-            AQICategory("low_air_polution", "Low air pollution"),
-            AQICategory("medium_air_polution", "Medium air pollution"),
-            AQICategory("high_air_polution", "High air pollution"),
-            AQICategory("very_high_air_polution", "Very high air pollution"),
+            AQICategory("very_low_air_pollution", "Very low air pollution"),
+            AQICategory("low_air_pollution", "Low air pollution"),
+            AQICategory("medium_air_pollution", "Medium air pollution"),
+            AQICategory("high_air_pollution", "High air pollution"),
+            AQICategory("very_high_air_pollution", "Very high air pollution"),
         ],
         "mng_eic": [
             AQICategory("clean", "Clean"),
             AQICategory("normal", "Normal"),
             AQICategory("low", "Low pollution"),
-            AQICategory("moderate_air_polution", "Moderate pollution"),
-            AQICategory("high_air_polution", "High pollution"),
-            AQICategory("very_high_air_polution", "Very High pollution"),
+            AQICategory("moderate_air_pollution", "Moderate pollution"),
+            AQICategory("high_air_pollution", "High pollution"),
+            AQICategory("very_high_air_pollution", "Very High pollution"),
         ],
         "mng_ubgov": [
             AQICategory("clean", "Clean"),
