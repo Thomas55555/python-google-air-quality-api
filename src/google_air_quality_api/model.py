@@ -9,6 +9,7 @@ from mashumaro import DataClassDictMixin, field_options
 from mashumaro.mixins.json import DataClassJSONMixin
 
 from .mapping import AQICategoryMapping
+from .pollutants import POLLUTANT_CODE_MAPPING
 
 
 @dataclass
@@ -72,6 +73,11 @@ class Index(DataClassDictMixin):
         if raw is None:
             return None
         return [cat.normalized for cat in raw]
+
+    @property
+    def pollutant_options(self) -> list[str] | None:
+        """Return supported pollutant codes for this index code."""
+        return POLLUTANT_CODE_MAPPING.get(self.code)
 
 
 class IndexList(list[Index]):

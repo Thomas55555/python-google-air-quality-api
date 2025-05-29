@@ -150,6 +150,23 @@
     ]),
   ])
 # ---
+# name: test_air_quality_snapshot[indexes_pollutant_options]
+  list([
+    list([
+      'co',
+      'no2',
+      'o3',
+      'pm10',
+      'pm25',
+      'so2',
+    ]),
+    list([
+      'no2',
+      'o3',
+      'pm10',
+    ]),
+  ])
+# ---
 # name: test_air_quality_snapshot[region_code]
   'de'
 # ---

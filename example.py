@@ -135,7 +135,7 @@ async def main() -> None:
             print("Air Quality Data:%s", response)
 
             for idx in response.indexes:
-                print(idx.category_options)
+                print(idx.pollutant_options)
 
 
 if __name__ == "__main__":
