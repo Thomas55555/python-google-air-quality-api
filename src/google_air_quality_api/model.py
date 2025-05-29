@@ -29,6 +29,19 @@ class Pollutant(DataClassDictMixin):
     full_name: str = field(metadata={"alias": "fullName"})
     concentration: Concentration
 
+    def __post_init__(self) -> None:
+        """Adjust concentration units and values after deserialization."""
+        units = self.concentration.units
+
+        if units == "PARTS_PER_BILLION":
+            self.concentration.units = "ppb"
+        elif units == "MICROGRAMS_PER_CUBIC_METER":
+            self.concentration.units = "µg/m³"
+
+        if self.code.lower() == "co" and self.concentration.units == "ppb":
+            self.concentration.value = self.concentration.value / 1000
+            self.concentration.units = "ppm"
+
 
 class PollutantList(list[Pollutant]):
     """Allows attribute access by pollutant code."""
