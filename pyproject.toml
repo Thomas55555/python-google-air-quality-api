@@ -46,7 +46,7 @@ covdefaults = "2.3.0"
 coverage = {version = "7.8.2", extras = ["toml"]}
 pre-commit = "4.2.0"
 pre-commit-hooks = "5.0.0"
-pytest = "8.3.5"
+pytest = "8.4.0"
 pytest-asyncio = "1.0.0"
 pytest-cov = "6.1.1"
 ruff = "0.11.12"
