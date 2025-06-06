@@ -1,5 +1,6 @@
 """API for Google Air Quality bound to Home Assistant OAuth."""
 
+import asyncio
 import logging
 from math import cos, floor, log, pi, radians, tan
 
@@ -42,6 +43,14 @@ class GoogleAirQualityApi:
         }
         return await self._auth.post_json(
             CURRENT_CONDITIONS, json=payload, data_cls=AirQualityData
+        )
+
+    async def async_air_quality_multiple(
+        self, locations: list[tuple[float, float]]
+    ) -> list[AirQualityData]:
+        """Fetch air quality data for multiple coordinates concurrently."""
+        return await asyncio.gather(
+            *[self.async_air_quality(lat, lon) for lat, lon in locations]
         )
 
     async def async_heatmap(self, lat: float, long: float, zoom: int) -> AirQualityData:
