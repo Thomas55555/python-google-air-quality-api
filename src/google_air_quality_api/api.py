@@ -7,6 +7,7 @@ from math import cos, floor, log, pi, radians, tan
 from .auth import AbstractAuth
 from .const import API_BASE_URL
 from .model import AirQualityData, UserInfoResult
+from .model_reverse_geocoding import PlacesResponse
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -67,3 +68,10 @@ class GoogleAirQualityApi:
         This call requires the userinfo.email scope.
         """
         return await self._auth.get_json(USERINFO_API, data_cls=UserInfoResult)
+
+    async def async_reverse_geocode(
+        self, lat: float, long: float, granularity: str = "GEOMETRIC_CENTER"
+    ) -> PlacesResponse:
+        """Get a location from coordinates."""
+        geocode_uri = f"https://geocode.googleapis.com/v4beta/geocode/location/{lat},{long}?granularity={granularity}"
+        return await self._auth.get_json(geocode_uri, data_cls=PlacesResponse)
