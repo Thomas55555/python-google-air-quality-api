@@ -136,7 +136,9 @@ async def main() -> None:
 
             for idx in response.indexes:
                 print(idx.category_options)
-                print(idx.pollutant_options)
+
+        response = await api.async_reverse_geocode(LATITUDE, LONGITUDE)
+        print("location:%s", response.results[0].formatted_address)
 
 
 if __name__ == "__main__":
