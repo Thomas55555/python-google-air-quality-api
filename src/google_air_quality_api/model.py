@@ -118,17 +118,6 @@ class AirQualityData(DataClassJSONMixin):
 
 
 @dataclass
-class UserInfoResult(DataClassJSONMixin):
-    """Response from getting user info."""
-
-    id: str
-    """User ID."""
-
-    name: str
-    """User name."""
-
-
-@dataclass
 class Error:
     """Error details from the API response."""
 

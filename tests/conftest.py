@@ -9,13 +9,13 @@ import pytest
 from aiohttp import ClientSession, web
 from aiohttp.web import Application
 
-from google_air_quality_api.auth import AbstractAuth
+from google_air_quality_api.auth import Auth
 
 PATH_PREFIX = "/path-prefix"
 
 AuthCallback = Callable[
     [list[tuple[str, Callable[[web.Request], Awaitable[web.Response]]]]],
-    Awaitable[AbstractAuth],
+    Awaitable[Auth],
 ]
 
 
@@ -31,14 +31,6 @@ def mock_air_quality_data() -> dict:
     return load_fixture_json("deu_uba.json")
 
 
-class FakeAuth(AbstractAuth):
-    """Implementation of AbstractAuth for use in tests."""
-
-    async def async_get_access_token(self) -> str:
-        """Return an OAuth credential for the calendar API."""
-        return "some-token"
-
-
 @pytest.fixture(name="auth_cb")
 def mock_auth_fixture(
     aiohttp_client: Callable[[Application], Awaitable[ClientSession]],
@@ -47,7 +39,7 @@ def mock_auth_fixture(
 
     async def create_auth(
         handlers: list[tuple[str, Callable[[web.Request], Awaitable[web.Response]]]],
-    ) -> AbstractAuth:
+    ) -> Auth:
         """Create a test authentication library with the specified handler."""
         app = Application()
         for path, handler in handlers:
@@ -55,6 +47,7 @@ def mock_auth_fixture(
             app.router.add_post(f"{PATH_PREFIX}{path}", handler)
 
         client = await aiohttp_client(app)
-        return FakeAuth(client, PATH_PREFIX)
+
+        return Auth(client, api_key="dummy-key", host=PATH_PREFIX)
 
     return create_auth
