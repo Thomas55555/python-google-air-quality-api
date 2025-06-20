@@ -21,7 +21,12 @@ POLLUTANT_CODE_MAPPING: dict[str, list[str]] = {
     "cyp_dli": ["so2", "no2", "co", "o3", "pm10", "pm25", "c6h6"],
     "cze_chmi": ["no2", "o3", "so2", "pm10"],
     "deu_lubw": ["no2", "so2", "co", "o3", "pm10"],
-    "deu_uba": ["no2", "o3", "pm10"],
+    "deu_uba": [
+        "no2",
+        "o3",
+        "pm25",
+        "pm10",
+    ],  # differs from documentation, also reports pm25
     "dnk_aarhus": ["no2", "co", "o3"],
     "eaqi": ["no2", "o3", "so2", "pm10", "pm25"],
     "ecu_quitoambiente": ["co", "o3", "no2", "so2", "pm25", "pm10"],
