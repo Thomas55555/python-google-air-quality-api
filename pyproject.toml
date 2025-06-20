@@ -36,8 +36,6 @@ optional = true
 
 [tool.poetry.group.example.dependencies]
 aiofiles = "^24.1.0"
-geopy = "^2.4.1"
-pillow = "^11.2.1"
 
 [tool.poetry.group.dev.dependencies]
 aioresponses = "0.7.8"
@@ -88,9 +86,6 @@ select = ["ALL"]
 [tool.ruff.lint.per-file-ignores]
 # Allow for main entry & scripts to write to stdout
 "example.py" = ["T201", "T203"]
-
-[tool.pylint.FORMAT]
-max-line-length = 88
 
 [tool.ruff.lint.flake8-annotations]
 allow-star-arg-any = true
