@@ -5,7 +5,6 @@ authentication tokens.
 """
 
 import logging
-from abc import ABC, abstractmethod
 from http import HTTPStatus
 from typing import Any, TypeVar
 
@@ -22,38 +21,31 @@ from .exceptions import (
 )
 from .model import Error, ErrorResponse
 
-__all__ = ["AbstractAuth"]
-
 _LOGGER = logging.getLogger(__name__)
 
 
-AUTHORIZATION_HEADER = "Authorization"
-CONTENT_TYPE = "Content-Type"
-ERROR = "error"
-STATUS = "status"
-MESSAGE = "message"
 MALFORMED_RESPONSE = "Server returned malformed response"
 ERROR_CONNECTING = "Error connecting to API"
 
 _T = TypeVar("_T", bound=DataClassJSONMixin)
 
 
-class AbstractAuth(ABC):
+class Auth:
     """Base class for Google Air Quality authentication library.
 
     Provides an asyncio interface around the blocking client library.
     """
 
     def __init__(
-        self, websession: aiohttp.ClientSession, host: str | None = None
+        self,
+        websession: aiohttp.ClientSession,
+        api_key: str,
+        host: str | None = None,
     ) -> None:
         """Initialize the auth."""
         self._websession = websession
         self._host = host or API_BASE_URL
-
-    @abstractmethod
-    async def async_get_access_token(self) -> str:
-        """Return a valid access token."""
+        self.api_key = api_key
 
     async def request(
         self,
@@ -63,20 +55,17 @@ class AbstractAuth(ABC):
         **kwargs: Any,
     ) -> aiohttp.ClientResponse:
         """Make a request."""
-        try:
-            access_token = await self.async_get_access_token()
-        except ClientError as err:
-            raise AuthError(err) from err
         if headers is None:
             headers = {}
-        if AUTHORIZATION_HEADER not in headers:
-            headers[AUTHORIZATION_HEADER] = f"Bearer {access_token}"
-            headers[CONTENT_TYPE] = "application/json"
+
         if not url.startswith(("http://", "https://")):
             url = f"{self._host}/{url}"
         _LOGGER.debug("request[%s]=%s %s", method, url, kwargs)
         if method != "get" and "json" in kwargs:
             _LOGGER.debug("request[post json]=%s", kwargs["json"])
+        sep = "&" if "?" in url else "?"
+        url = f"{url}{sep}key={self.api_key}"
+
         return await self._websession.request(method, url, **kwargs, headers=headers)
 
     async def get(self, url: str, **kwargs: Any) -> aiohttp.ClientResponse:
@@ -85,7 +74,7 @@ class AbstractAuth(ABC):
             resp = await self.request("get", url, **kwargs)
         except ClientError as err:
             raise ApiError(err) from err
-        return await AbstractAuth._raise_for_status(resp)
+        return await Auth._raise_for_status(resp)
 
     async def get_json(
         self,
@@ -114,7 +103,7 @@ class AbstractAuth(ABC):
         except ClientError as err:
             message = f"{ERROR_CONNECTING}: {err}"
             raise ApiError(message) from err
-        return await AbstractAuth._raise_for_status(resp)
+        return await Auth._raise_for_status(resp)
 
     async def post_json(self, url: str, data_cls: type[_T], **kwargs: Any) -> _T:
         """Make a post request and return a json response."""

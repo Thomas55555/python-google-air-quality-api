@@ -8,7 +8,7 @@ from aiohttp import web
 from mashumaro import field_options
 from mashumaro.mixins.json import DataClassJSONMixin
 
-from google_air_quality_api.auth import AbstractAuth
+from google_air_quality_api.auth import Auth
 from google_air_quality_api.exceptions import ApiError, ApiForbiddenError
 
 from .conftest import AuthCallback
@@ -21,7 +21,7 @@ class Response(DataClassJSONMixin):
     some_key: str = field(metadata=field_options(alias="some-key"))
 
 
-class FakeAuth(AbstractAuth):
+class FakeAuth(Auth):
     """Implementation of AbstractAuth for use in tests."""
 
     async def async_get_access_token(self) -> str:

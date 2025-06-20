@@ -4,15 +4,13 @@ import asyncio
 import logging
 from math import cos, floor, log, pi, radians, tan
 
-from .auth import AbstractAuth
+from .auth import Auth
 from .const import API_BASE_URL
-from .model import AirQualityData, UserInfoResult
+from .model import AirQualityData
 from .model_reverse_geocoding import PlacesResponse
 
 _LOGGER = logging.getLogger(__name__)
 
-
-USERINFO_API = "https://www.googleapis.com/oauth2/v1/userinfo"
 CURRENT_CONDITIONS = "currentConditions:lookup"
 
 
@@ -28,7 +26,7 @@ def latlon_to_tile(lat: float, lon: float, zoom: int) -> tuple[int, int]:
 class GoogleAirQualityApi:
     """The Google Air Quality library api client."""
 
-    def __init__(self, auth: AbstractAuth) -> None:
+    def __init__(self, auth: Auth) -> None:
         """Initialize GoogleAirQualityApi."""
         self._auth = auth
 
@@ -61,13 +59,6 @@ class GoogleAirQualityApi:
             f"{API_BASE_URL}/mapTypes/UAQI_RED_GREEN/heatmapTiles/{zoom}/{x}/{y}"
         )
         return await self._auth.get(heat_map_uri)
-
-    async def get_user_info(self) -> UserInfoResult:
-        """Get the user profile info.
-
-        This call requires the userinfo.email scope.
-        """
-        return await self._auth.get_json(USERINFO_API, data_cls=UserInfoResult)
 
     async def async_reverse_geocode(
         self, lat: float, long: float, granularity: str = "GEOMETRIC_CENTER"
