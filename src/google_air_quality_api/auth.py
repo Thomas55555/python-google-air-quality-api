@@ -42,13 +42,13 @@ class Auth:
         api_key: str,
         *,
         host: str | None = None,
-        referer: str | None = None,
+        referrer: str | None = None,
     ) -> None:
         """Initialize the auth."""
         self._websession = websession
         self._host = host or API_BASE_URL
         self.api_key = api_key
-        self.referer = referer
+        self.referrer = referrer
 
     async def request(
         self,
@@ -60,8 +60,8 @@ class Auth:
         """Make a request."""
         if headers is None:
             headers = {}
-        if self.referer is not None:
-            headers["Referer"] = self.referer
+        if self.referrer:
+            headers["Referer"] = self.referrer
         if not url.startswith(("http://", "https://")):
             url = f"{self._host}/{url}"
         _LOGGER.debug("request[%s]=%s %s", method, url, kwargs)

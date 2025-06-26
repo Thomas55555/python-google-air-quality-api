@@ -38,7 +38,7 @@ def configure_logging(level: int = logging.INFO) -> None:
 async def main() -> None:
     configure_logging(logging.DEBUG)
     async with aiohttp.ClientSession() as websession:
-        auth = Auth(websession, API_KEY, referer="https://storage.googleapis.com")
+        auth = Auth(websession, API_KEY, referrer="https://storage.googleapis.com")
         api = GoogleAirQualityApi(auth)
         response = await api.async_heatmap(LATITUDE, LONGITUDE, ZOOM)
 
