@@ -48,8 +48,10 @@ class GoogleAirQualityApi:
         self, locations: list[tuple[float, float]]
     ) -> list[AirQualityData]:
         """Fetch air quality data for multiple coordinates concurrently."""
-        return await asyncio.gather(
-            *[self.async_air_quality(lat, lon) for lat, lon in locations]
+        return list(
+            await asyncio.gather(
+                *[self.async_air_quality(lat, lon) for lat, lon in locations]
+            )
         )
 
     async def async_heatmap(self, lat: float, long: float, zoom: int) -> AirQualityData:
