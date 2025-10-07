@@ -106,6 +106,7 @@ include = ["tests/**", "**/test_*.py"]
 
 [tool.ty.overrides.rules]
 unresolved-import = "warn"
+unresolved-attribute = "warn"
 
 [tool.coverage.report]
 show_missing = true
