@@ -41,7 +41,7 @@ aiofiles = "^24.1.0"
 aioresponses = "0.7.8"
 codespell = "2.4.1"
 covdefaults = "2.3.0"
-coverage = {version = "7.10.2", extras = ["toml"]}
+coverage = {version = "7.10.7", extras = ["toml"]}
 pre-commit = "4.3.0"
 pre-commit-hooks = "5.0.0"
 pytest = "8.4.1"
