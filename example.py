@@ -42,20 +42,19 @@ async def main() -> None:
         api = GoogleAirQualityApi(auth)
         response = await api.async_heatmap(LATITUDE, LONGITUDE, ZOOM)
 
-        async with response:
-            if response.status == 200:
-                content = await response.read()
-                async with aiofiles.open(OUTPUT_FILE, "wb") as f:
-                    await f.write(content)
-                print(f"Picture saved as {OUTPUT_FILE}")
-            else:
-                print(f"Error getting picture: {response.status}")
+        if response.status == 200:
+            content = await response.read()
+            async with aiofiles.open(OUTPUT_FILE, "wb") as f:
+                await f.write(content)
+            print(f"Picture saved as {OUTPUT_FILE}")
+        else:
+            print(f"Error getting picture: {response.status}")
 
-            response = await api.async_air_quality(LATITUDE, LONGITUDE)
-            print("Air Quality Data:%s", response)
+        response = await api.async_air_quality(LATITUDE, LONGITUDE)
+        print("Air Quality Data:%s", response)
 
-            for idx in response.indexes:
-                print(idx.category_options)
+        for idx in response.indexes:
+            print(idx.category_options)
 
         response = await api.async_reverse_geocode(LATITUDE, LONGITUDE)
         print("location:%s", response.results[0].formatted_address)
