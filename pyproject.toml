@@ -98,8 +98,8 @@ builtins-ignorelist = ["id"]
 # Use Google-style docstrings.
 convention = "pep257"
 
-[tool.ty.src]
-root = "."
+[tool.ty.environment]
+root = ["./src"]
 
 [tool.coverage.report]
 show_missing = true
