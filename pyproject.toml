@@ -42,7 +42,7 @@ aioresponses = "0.7.8"
 codespell = "2.4.1"
 covdefaults = "2.3.0"
 coverage = {version = "7.10.2", extras = ["toml"]}
-pre-commit = "4.2.0"
+pre-commit = "4.3.0"
 pre-commit-hooks = "5.0.0"
 pytest = "8.4.1"
 pytest-asyncio = "1.1.0"
@@ -98,8 +98,8 @@ builtins-ignorelist = ["id"]
 # Use Google-style docstrings.
 convention = "pep257"
 
-[tool.ty.src]
-root = "."
+[tool.ty.environment]
+root = ["./src"]
 
 [tool.coverage.report]
 show_missing = true
