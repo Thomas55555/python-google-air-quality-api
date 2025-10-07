@@ -10,7 +10,8 @@ from mashumaro.mixins.json import DataClassJSONMixin
 
 from google_air_quality_api.auth import Auth
 from google_air_quality_api.exceptions import ApiError, ApiForbiddenError
-from tests.conftest import AuthCallback
+
+from .conftest import AuthCallback
 
 
 @dataclass

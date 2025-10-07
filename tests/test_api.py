@@ -6,7 +6,8 @@ import pytest
 from aiohttp import web
 
 from google_air_quality_api.api import GoogleAirQualityApi
-from tests.conftest import AuthCallback
+
+from .conftest import AuthCallback
 
 
 @pytest.fixture(name="requests")
