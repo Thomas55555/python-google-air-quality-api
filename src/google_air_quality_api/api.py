@@ -31,10 +31,10 @@ class GoogleAirQualityApi:
         """Initialize GoogleAirQualityApi."""
         self._auth = auth
 
-    async def async_get_air_quality(self, lat: float, long: float) -> AirQualityData:
+    async def async_get_air_quality(self, lat: float, lon: float) -> AirQualityData:
         """Get all air quality data."""
         payload = {
-            "location": {"latitude": lat, "longitude": long},
+            "location": {"latitude": lat, "longitude": lon},
             "extraComputations": [
                 "LOCAL_AQI",
                 "POLLUTANT_CONCENTRATION",
@@ -45,17 +45,17 @@ class GoogleAirQualityApi:
             CURRENT_CONDITIONS, json=payload, data_cls=AirQualityData
         )
 
-    async def async_heatmap(self, lat: float, long: float, zoom: int) -> ClientResponse:
+    async def async_heatmap(self, lat: float, lon: float, zoom: int) -> ClientResponse:
         """Get all air quality data."""
-        x, y = latlon_to_tile(lat, long, zoom)
+        x, y = latlon_to_tile(lat, lon, zoom)
         heat_map_uri = (
             f"{API_BASE_URL}/mapTypes/UAQI_RED_GREEN/heatmapTiles/{zoom}/{x}/{y}"
         )
         return await self._auth.get(heat_map_uri)
 
     async def async_reverse_geocode(
-        self, lat: float, long: float, granularity: str = "GEOMETRIC_CENTER"
+        self, lat: float, lon: float, granularity: str = "GEOMETRIC_CENTER"
     ) -> PlacesResponse:
         """Get a location from coordinates."""
-        geocode_uri = f"https://geocode.googleapis.com/v4beta/geocode/location/{lat},{long}?granularity={granularity}"
+        geocode_uri = f"https://geocode.googleapis.com/v4beta/geocode/location/{lat},{lon}?granularity={granularity}"
         return await self._auth.get_json(geocode_uri, data_cls=PlacesResponse)
