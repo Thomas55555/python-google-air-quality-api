@@ -101,12 +101,8 @@ convention = "pep257"
 [tool.ty.environment]
 root = ["./src"]
 
-[[tool.ty.overrides]]
-include = ["tests/**", "**/test_*.py"]
-
-[tool.ty.overrides.rules]
-unresolved-import = "warn"
-unresolved-attribute = "warn"
+[tool.ty.src]
+include = ["src"]
 
 [tool.coverage.report]
 show_missing = true
