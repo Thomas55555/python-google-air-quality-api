@@ -83,10 +83,10 @@ class AQICategoryMapping:
             ),
         ],
         "bgr_niggg": [
-            AQICategory("low_air_quality", "Low air pollution"),
-            AQICategory("moderate_air_quality", "Moderate air pollution"),
-            AQICategory("high_air_quality", "High air pollution"),
-            AQICategory("very_high_air_quality", "Very High air pollution"),
+            AQICategory("low_air_pollution", "Low air pollution"),
+            AQICategory("moderate_air_pollution", "Moderate air pollution"),
+            AQICategory("high_air_pollution", "High air pollution"),
+            AQICategory("very_high_air_pollution", "Very high air pollution"),
         ],
         "bra_saopaulo": [
             AQICategory("n1_good_air_quality", "N1 - Good air quality"),
@@ -116,15 +116,7 @@ class AQICategoryMapping:
             AQICategory("high_air_pollution", "High air pollution"),
             AQICategory("very_high_air_pollution", "Very high air pollution"),
         ],
-        "chn_mee": [
-            AQICategory("excellent_air_quality", "Excellent air quality"),
-            AQICategory("good_air_quality", "Good air quality"),
-            AQICategory("light_air_pollution", "Light air pollution"),
-            AQICategory("moderate_air_pollution", "Moderate air pollution"),
-            AQICategory("heavy_air_pollution", "Heavy air pollution"),
-            AQICategory("severe_air_pollution", "Severe air pollution"),
-        ],
-        "chn_mee_1h": [
+        "chn_mep": [
             AQICategory("excellent_air_quality", "Excellent air quality"),
             AQICategory("good_air_quality", "Good air quality"),
             AQICategory("light_air_pollution", "Light air pollution"),
@@ -143,7 +135,8 @@ class AQICategoryMapping:
         "cri_icca": [
             AQICategory("good_air_quality", "Good air quality"),
             AQICategory(
-                "unfavorable_sensitive", "Unfavorable air quality for sensitive groups"
+                "unfavorable_air_quality_for_sensitive_groups",
+                "Unfavorable air quality for sensitive groups",
             ),
             AQICategory("unfavorable_air_quality", "Unfavorable air quality"),
             AQICategory("very_unfavorable_air_quality", "Very unfavorable air quality"),
@@ -444,7 +437,7 @@ class AQICategoryMapping:
             AQICategory(
                 "unhealthy_sensitive", "Unhealthy air quality for sensitive groups"
             ),
-            AQICategory("very_unhealthy", "Very unhealthy air quality"),
+            AQICategory("very_unhealthy_air_quality", "Very unhealthy air quality"),
             AQICategory("acutely_unhealthy", "Acutely unhealthy air quality"),
             AQICategory("emergency", "Emergency"),
         ],
