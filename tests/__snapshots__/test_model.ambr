@@ -1,8 +1,8 @@
 # serializer version: 1
 # name: test_air_quality_snapshot[_indexes]
   list([
-    Index(code='uaqi', display_name='Universal AQI', color=Color(red=0.48235294, green=0.79607844, blue=0.2), category='good_air_quality', dominant_pollutant='o3', aqi=71, aqi_display='71'),
-    Index(code='deu_uba', display_name='LQI (DE)', color=Color(red=0.3137255, green=0.8039216, blue=0.6666667), category='good_air_quality', dominant_pollutant='no2', aqi=None, aqi_display=None),
+    Index(code='uaqi', display_name='Universal AQI', category='good_air_quality', dominant_pollutant='o3', aqi=71, color=Color(red=0.48235294, green=0.79607844, blue=0.2), aqi_display='71'),
+    Index(code='deu_uba', display_name='LQI (DE)', category='good_air_quality', dominant_pollutant='no2', aqi=None, color=Color(red=0.3137255, green=0.8039216, blue=0.6666667), aqi_display=None),
   ])
 # ---
 # name: test_air_quality_snapshot[_pollutants]

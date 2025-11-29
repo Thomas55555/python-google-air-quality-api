@@ -71,12 +71,12 @@ class Index(DataClassDictMixin):
 
     code: str
     display_name: str = field(metadata={"alias": "displayName"})
-    color: Color
     category: str = field(
         metadata=field_options(deserialize=lambda x: sub(r"\s+", "_", x.lower()))
     )
     dominant_pollutant: str = field(metadata={"alias": "dominantPollutant"})
     aqi: int | None = None
+    color: Color | None = field(default=None)
     aqi_display: str | None = field(default=None, metadata={"alias": "aqiDisplay"})
 
     @property
