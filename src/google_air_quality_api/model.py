@@ -76,7 +76,9 @@ class Index(DataClassDictMixin):
     )
     dominant_pollutant: str = field(metadata={"alias": "dominantPollutant"})
     aqi: int | None = None
-    color: Color | None = field(default=None)
+    color: Color | None = field(
+        default=None
+    )  # Some responses may not include color, this is not allocated to a location and just happens randomly
     aqi_display: str | None = field(default=None, metadata={"alias": "aqiDisplay"})
 
     @property
