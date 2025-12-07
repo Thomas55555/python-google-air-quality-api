@@ -24,7 +24,7 @@ async def mock_api(
 ) -> GoogleAirQualityApi:
     """Fixture for fake API object."""
 
-    async def async_get_air_quality_current_conditions_data_handler(
+    async def async_get_current_conditions_data_handler(
         request: web.Request,
     ) -> web.Response:
         requests.append(request)
@@ -34,7 +34,7 @@ async def mock_api(
         [
             (
                 "/currentConditions:lookup",
-                async_get_air_quality_current_conditions_data_handler,
+                async_get_current_conditions_data_handler,
             ),
         ]
     )
@@ -42,9 +42,9 @@ async def mock_api(
     return GoogleAirQualityApi(auth)
 
 
-async def test_async_get_air_quality_data_current_conditions(
+async def test_async_get_current_conditions_data(
     api: GoogleAirQualityApi,
 ) -> None:
     """Test get user info API."""
-    result = await api.async_get_air_quality_current_conditions(1, 2)
+    result = await api.async_get_current_conditions(1, 2)
     assert result is not None
