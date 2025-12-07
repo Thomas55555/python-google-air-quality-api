@@ -50,7 +50,7 @@ async def main() -> None:
         else:
             print(f"Error getting picture: {response.status}")
 
-        response = await api.async_air_quality(LATITUDE, LONGITUDE)
+        response = await api.async_get_current_conditions(LATITUDE, LONGITUDE)
         print("Air Quality Data:%s", response)
 
         for idx in response.indexes:
