@@ -40,25 +40,14 @@ async def main() -> None:
     async with aiohttp.ClientSession() as websession:
         auth = Auth(websession, API_KEY, referrer="https://storage.googleapis.com")
         api = GoogleAirQualityApi(auth)
-        response = await api.async_heatmap(LATITUDE, LONGITUDE, ZOOM)
-
-        if response.status == 200:
-            content = await response.read()
-            async with aiofiles.open(OUTPUT_FILE, "wb") as f:
-                await f.write(content)
-            print(f"Picture saved as {OUTPUT_FILE}")
-        else:
-            print(f"Error getting picture: {response.status}")
 
         response = await api.async_get_current_conditions(LATITUDE, LONGITUDE)
-        response = await api.async_get_forecast(LATITUDE, LONGITUDE)
         print("Air Quality Data:%s", response)
+        response = await api.async_get_forecast(LATITUDE, LONGITUDE, date_time=1)
+        print("Forecast:%s", response)
 
         for idx in response.indexes:
             print(idx.category_options)
-
-        response = await api.async_reverse_geocode(LATITUDE, LONGITUDE)
-        print("location:%s", response.results[0].formatted_address)
 
 
 if __name__ == "__main__":

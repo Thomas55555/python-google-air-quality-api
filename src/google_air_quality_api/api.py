@@ -1,6 +1,7 @@
 """API for Google Air Quality bound to Home Assistant OAuth."""
 
 import logging
+from datetime import datetime
 
 from .auth import Auth
 from .model import AirQualityData
@@ -35,16 +36,17 @@ class GoogleAirQualityApi:
         )
 
     async def async_get_forecast(
-        self, lat: float, long: float
+        self, lat: float, lon: float, date_time: datetime
     ) -> AirQualityData:
         """Get air quality forecast data."""
         payload = {
-            "location": {"latitude": lat, "longitude": long},
+            "location": {"latitude": lat, "longitude": lon},
             "extraComputations": [
                 "LOCAL_AQI",
                 "POLLUTANT_CONCENTRATION",
             ],
             "universalAqi": True,
+            "dateTime": date_time.isoformat(),
         }
         return await self._auth.post_json(
             FORECAST, json=payload, data_cls=AirQualityData
