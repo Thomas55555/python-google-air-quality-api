@@ -49,7 +49,7 @@ class GoogleAirQualityApi:
     async def async_get_air_quality_forecast(
         self, lat: float, long: float
     ) -> AirQualityData:
-        """Get all air quality data."""
+        """Get air quality forecast data."""
         payload = {
             "location": {"latitude": lat, "longitude": long},
             "extraComputations": [
