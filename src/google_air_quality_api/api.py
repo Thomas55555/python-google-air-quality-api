@@ -31,7 +31,9 @@ class GoogleAirQualityApi:
         """Initialize GoogleAirQualityApi."""
         self._auth = auth
 
-    async def async_get_air_quality(self, lat: float, lon: float) -> AirQualityData:
+    async def async_get_air_quality_current_conditions(
+        self, lat: float, lon: float
+    ) -> AirQualityData:
         """Get all air quality data."""
         payload = {
             "location": {"latitude": lat, "longitude": lon},
