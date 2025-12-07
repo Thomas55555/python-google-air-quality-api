@@ -13,6 +13,7 @@ from .model_reverse_geocoding import PlacesResponse
 _LOGGER = logging.getLogger(__name__)
 
 CURRENT_CONDITIONS = "currentConditions:lookup"
+FORECAST = "forecast:lookup"
 
 
 def latlon_to_tile(lat: float, lon: float, zoom: int) -> tuple[int, int]:
@@ -43,6 +44,22 @@ class GoogleAirQualityApi:
         }
         return await self._auth.post_json(
             CURRENT_CONDITIONS, json=payload, data_cls=AirQualityData
+        )
+
+    async def async_get_air_quality_forecast(
+        self, lat: float, long: float
+    ) -> AirQualityData:
+        """Get all air quality data."""
+        payload = {
+            "location": {"latitude": lat, "longitude": long},
+            "extraComputations": [
+                "LOCAL_AQI",
+                "POLLUTANT_CONCENTRATION",
+            ],
+            "universalAqi": True,
+        }
+        return await self._auth.post_json(
+            FORECAST, json=payload, data_cls=AirQualityData
         )
 
     async def async_heatmap(self, lat: float, long: float, zoom: int) -> ClientResponse:
