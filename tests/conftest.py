@@ -25,10 +25,16 @@ def load_fixture_json(filename: str) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-@pytest.fixture(name="air_quality_data")
-def mock_air_quality_data() -> dict:
+@pytest.fixture(name="air_quality_current_conditions_data")
+def mock_air_quality_current_conditions_data() -> dict:
     """Return air quality data from deu_uba."""
-    return load_fixture_json("deu_uba.json")
+    return load_fixture_json("deu_uba_current_conditions.json")
+
+
+@pytest.fixture(name="air_quality_forecast_data")
+def mock_air_quality_forecast_data() -> dict:
+    """Return air quality data from deu_uba."""
+    return load_fixture_json("deu_uba_forecast.json")
 
 
 @pytest.fixture(name="auth_cb")

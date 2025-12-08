@@ -1,13 +1,9 @@
 """API for Google Air Quality bound to Home Assistant OAuth."""
 
-import logging
+from datetime import UTC, datetime, timedelta
 
 from .auth import Auth
-from .model import AirQualityData
-
-_LOGGER = logging.getLogger(__name__)
-
-CURRENT_CONDITIONS = "currentConditions:lookup"
+from .model import AirQualityCurrentConditionsData, AirQualityForecastData
 
 
 class GoogleAirQualityApi:
@@ -19,7 +15,7 @@ class GoogleAirQualityApi:
 
     async def async_get_current_conditions(
         self, lat: float, lon: float
-    ) -> AirQualityData:
+    ) -> AirQualityCurrentConditionsData:
         """Get all air quality data."""
         payload = {
             "location": {"latitude": lat, "longitude": lon},
@@ -30,5 +26,25 @@ class GoogleAirQualityApi:
             "universalAqi": True,
         }
         return await self._auth.post_json(
-            CURRENT_CONDITIONS, json=payload, data_cls=AirQualityData
+            "currentConditions:lookup",
+            json=payload,
+            data_cls=AirQualityCurrentConditionsData,
+        )
+
+    async def async_get_forecast(
+        self, lat: float, lon: float, forecast_timedelta: timedelta
+    ) -> AirQualityForecastData:
+        """Get air quality forecast data."""
+        forecast_date_time = datetime.now(tz=UTC) + forecast_timedelta
+        payload = {
+            "location": {"latitude": lat, "longitude": lon},
+            "extraComputations": [
+                "LOCAL_AQI",
+                "POLLUTANT_CONCENTRATION",
+            ],
+            "universalAqi": True,
+            "dateTime": forecast_date_time.isoformat(),
+        }
+        return await self._auth.post_json(
+            "forecast:lookup", json=payload, data_cls=AirQualityForecastData
         )

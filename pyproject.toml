@@ -31,12 +31,6 @@ metadata = false
 [tool.poetry.requires-plugins]
 poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = ["plugin"] }
 
-[tool.poetry.group.example]
-optional = true
-
-[tool.poetry.group.example.dependencies]
-aiofiles = "^25.0.0"
-
 [tool.poetry.group.dev.dependencies]
 aioresponses = "0.7.8"
 codespell = "2.4.1"
