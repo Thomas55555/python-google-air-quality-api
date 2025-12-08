@@ -1,6 +1,6 @@
 """Tests for Google Air Quality library API."""
 
-from datetime import UTC, datetime
+from datetime import timedelta
 from typing import Any
 
 import pytest
@@ -64,6 +64,6 @@ async def test_async_get_current_conditions_data(
 
 async def test_async_get_forecast(api: GoogleAirQualityApi) -> None:
     """Test forecast lookup API."""
-    result = await api.async_get_forecast(1.0, 2.0, datetime(2024, 1, 1, tzinfo=UTC))
+    result = await api.async_get_forecast(1.0, 2.0, timedelta(hours=1))
 
     assert result is not None

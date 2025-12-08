@@ -1,15 +1,11 @@
 import asyncio
-import json
 from pathlib import Path
-from typing import Any
 from google_air_quality_api.api import GoogleAirQualityApi
 from google_air_quality_api.auth import Auth
-from google_air_quality_api.const import API_BASE_URL
 import aiohttp
-import aiofiles
 import yaml
 import logging
-from datetime import datetime, UTC, timedelta
+from datetime import timedelta
 # Fill out the secrets in secrets.yaml, you can find an example
 # _secrets.yaml file, which has to be renamed after filling out the secrets.
 
@@ -24,8 +20,6 @@ API_KEY = secrets["API_KEY"]
 
 LONGITUDE = secrets["LONGITUDE"]
 LATITUDE = secrets["LATITUDE"]
-ZOOM = 4
-OUTPUT_FILE = "air_quality.png"
 
 
 def configure_logging(level: int = logging.INFO) -> None:
@@ -45,7 +39,7 @@ async def main() -> None:
         current_conditions = await api.async_get_current_conditions(LATITUDE, LONGITUDE)
         print("Current conditions:%s", current_conditions)
         forecast = await api.async_get_forecast(
-            LATITUDE, LONGITUDE, date_time=datetime.now(tz=UTC) + timedelta(hours=1)
+            LATITUDE, LONGITUDE, forecast_timedelta=timedelta(hours=1)
         )
         print("Forecast:%s", forecast)
 
