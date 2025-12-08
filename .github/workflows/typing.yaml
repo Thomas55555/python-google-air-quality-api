@@ -31,6 +31,6 @@ jobs:
           poetry config virtualenvs.create true
           poetry config virtualenvs.in-project true
       - name: 🏗 Install Python dependencies
-        run: poetry install --no-interaction --with example
+        run: poetry install --no-interaction
       - name: Run Ty
         run: poetry run ty check
