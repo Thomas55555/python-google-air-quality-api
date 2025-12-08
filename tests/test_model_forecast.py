@@ -12,10 +12,12 @@ from google_air_quality_api.model import (
 
 
 def test_air_quality_current_conditions_snapshot(
-    snapshot: SnapshotAssertion, air_quality_data: dict
+    snapshot: SnapshotAssertion, air_quality_current_conditions_data: dict
 ) -> None:
     """Testing a snapshot of air quality data."""
-    data = AirQualityCurrentConditionsData.from_dict(air_quality_data)
+    data = AirQualityCurrentConditionsData.from_dict(
+        air_quality_current_conditions_data
+    )
 
     for field in fields(data):
         field_name = field.name

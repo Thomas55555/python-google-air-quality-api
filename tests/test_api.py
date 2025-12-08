@@ -1,5 +1,6 @@
 """Tests for Google Air Quality library API."""
 
+from datetime import UTC, datetime
 from typing import Any
 
 import pytest
@@ -20,7 +21,8 @@ async def mock_requests() -> list[web.Request]:
 async def mock_api(
     auth_cb: AuthCallback,
     requests: list[web.Request],
-    air_quality_data: dict[str, Any],
+    air_quality_current_conditions_data: dict[str, Any],
+    air_quality_forecast_data: dict[str, Any],
 ) -> GoogleAirQualityApi:
     """Fixture for fake API object."""
 
@@ -28,13 +30,23 @@ async def mock_api(
         request: web.Request,
     ) -> web.Response:
         requests.append(request)
-        return web.json_response(air_quality_data)
+        return web.json_response(air_quality_current_conditions_data)
+
+    async def async_get_forecast_data_handler(
+        request: web.Request,
+    ) -> web.Response:
+        requests.append(request)
+        return web.json_response(air_quality_forecast_data)
 
     auth = await auth_cb(
         [
             (
                 "/currentConditions:lookup",
                 async_get_current_conditions_data_handler,
+            ),
+            (
+                "/forecast:lookup",
+                async_get_forecast_data_handler,
             ),
         ]
     )
@@ -45,6 +57,13 @@ async def mock_api(
 async def test_async_get_current_conditions_data(
     api: GoogleAirQualityApi,
 ) -> None:
-    """Test get user info API."""
+    """Test get current conditions API."""
     result = await api.async_get_current_conditions(1, 2)
+    assert result is not None
+
+
+async def test_async_get_forecast(api: GoogleAirQualityApi) -> None:
+    """Test forecast lookup API."""
+    result = await api.async_get_forecast(1.0, 2.0, datetime(2024, 1, 1, tzinfo=UTC))
+
     assert result is not None
