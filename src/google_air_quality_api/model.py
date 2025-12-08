@@ -104,9 +104,9 @@ class AirQualityData(DataClassJSONMixin):
     """Holds air quality data with timestamp and region."""
 
     date_time: datetime = field(metadata={"alias": "dateTime"})
-    region_code: str = field(metadata={"alias": "regionCode"})
     _indexes: list[Index] = field(metadata={"alias": "indexes"})
     _pollutants: list[Pollutant] = field(metadata={"alias": "pollutants"})
+    region_code: str | None = field(metadata={"alias": "regionCode"}, default=None)
 
     @property
     def indexes(self) -> IndexList:
@@ -117,6 +117,16 @@ class AirQualityData(DataClassJSONMixin):
     def pollutants(self) -> PollutantList:
         """Returns list of pollutants with attribute access."""
         return PollutantList(self._pollutants)
+
+
+@dataclass
+class AirQualityForecast(DataClassJSONMixin):
+    """Holds air quality data with timestamp and region."""
+
+    hourly_forecasts: list[AirQualityData] = field(
+        metadata={"alias": "hourlyForecasts"}
+    )
+    region_code: str = field(metadata={"alias": "regionCode"})
 
 
 @dataclass

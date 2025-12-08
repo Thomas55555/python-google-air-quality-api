@@ -4,7 +4,7 @@ import logging
 from datetime import datetime
 
 from .auth import Auth
-from .model import AirQualityData
+from .model import AirQualityData, AirQualityForecast
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -49,5 +49,5 @@ class GoogleAirQualityApi:
             "dateTime": date_time.isoformat(),
         }
         return await self._auth.post_json(
-            FORECAST, json=payload, data_cls=AirQualityData
+            FORECAST, json=payload, data_cls=AirQualityForecast
         )

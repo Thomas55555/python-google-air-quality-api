@@ -9,6 +9,7 @@ import aiohttp
 import aiofiles
 import yaml
 import logging
+from datetime import datetime, UTC, timedelta
 # Fill out the secrets in secrets.yaml, you can find an example
 # _secrets.yaml file, which has to be renamed after filling out the secrets.
 
@@ -41,12 +42,14 @@ async def main() -> None:
         auth = Auth(websession, API_KEY, referrer="https://storage.googleapis.com")
         api = GoogleAirQualityApi(auth)
 
-        response = await api.async_get_current_conditions(LATITUDE, LONGITUDE)
-        print("Air Quality Data:%s", response)
-        response = await api.async_get_forecast(LATITUDE, LONGITUDE, date_time=1)
-        print("Forecast:%s", response)
+        current_conditions = await api.async_get_current_conditions(LATITUDE, LONGITUDE)
+        print("Current conditions:%s", current_conditions)
+        forecast = await api.async_get_forecast(
+            LATITUDE, LONGITUDE, date_time=datetime.now(tz=UTC) + timedelta(hours=1)
+        )
+        print("Forecast:%s", forecast)
 
-        for idx in response.indexes:
+        for idx in current_conditions.indexes:
             print(idx.category_options)
 
 
