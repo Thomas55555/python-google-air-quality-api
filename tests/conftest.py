@@ -31,6 +31,12 @@ def mock_air_quality_data() -> dict:
     return load_fixture_json("deu_uba.json")
 
 
+@pytest.fixture(name="air_quality_forecast_data")
+def mock_air_quality_forecast_data() -> dict:
+    """Return air quality data from deu_uba."""
+    return load_fixture_json("deu_uba_forecast.json")
+
+
 @pytest.fixture(name="auth_cb")
 def mock_auth_fixture(
     aiohttp_client: Callable[[Application], Awaitable[ClientSession]],
