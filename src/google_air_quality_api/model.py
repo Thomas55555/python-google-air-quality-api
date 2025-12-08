@@ -100,7 +100,7 @@ class IndexList(list[Index]):
 
 
 @dataclass
-class AirQualityData(DataClassJSONMixin):
+class AirQualityCurrentConditionsData(DataClassJSONMixin):
     """Holds air quality data with timestamp and region."""
 
     date_time: datetime = field(metadata={"alias": "dateTime"})
@@ -120,10 +120,10 @@ class AirQualityData(DataClassJSONMixin):
 
 
 @dataclass
-class AirQualityForecast(DataClassJSONMixin):
+class AirQualityForecastData(DataClassJSONMixin):
     """Holds air quality data with timestamp and region."""
 
-    hourly_forecasts: list[AirQualityData] = field(
+    hourly_forecasts: list[AirQualityCurrentConditionsData] = field(
         metadata={"alias": "hourlyForecasts"}
     )
     region_code: str = field(metadata={"alias": "regionCode"})

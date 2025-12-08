@@ -4,7 +4,7 @@ import logging
 from datetime import datetime
 
 from .auth import Auth
-from .model import AirQualityData, AirQualityForecast
+from .model import AirQualityCurrentConditionsData, AirQualityForecastData
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ class GoogleAirQualityApi:
 
     async def async_get_current_conditions(
         self, lat: float, lon: float
-    ) -> AirQualityData:
+    ) -> AirQualityCurrentConditionsData:
         """Get all air quality data."""
         payload = {
             "location": {"latitude": lat, "longitude": lon},
@@ -32,12 +32,12 @@ class GoogleAirQualityApi:
             "universalAqi": True,
         }
         return await self._auth.post_json(
-            CURRENT_CONDITIONS, json=payload, data_cls=AirQualityData
+            CURRENT_CONDITIONS, json=payload, data_cls=AirQualityCurrentConditionsData
         )
 
     async def async_get_forecast(
         self, lat: float, lon: float, date_time: datetime
-    ) -> AirQualityData:
+    ) -> AirQualityForecastData:
         """Get air quality forecast data."""
         payload = {
             "location": {"latitude": lat, "longitude": lon},
@@ -49,5 +49,5 @@ class GoogleAirQualityApi:
             "dateTime": date_time.isoformat(),
         }
         return await self._auth.post_json(
-            FORECAST, json=payload, data_cls=AirQualityForecast
+            FORECAST, json=payload, data_cls=AirQualityForecastData
         )

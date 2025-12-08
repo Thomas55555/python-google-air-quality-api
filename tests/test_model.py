@@ -4,14 +4,17 @@ from dataclasses import fields
 
 from syrupy.assertion import SnapshotAssertion
 
-from google_air_quality_api.model import AirQualityData, AQICategoryMapping
+from google_air_quality_api.model import (
+    AirQualityCurrentConditionsData,
+    AQICategoryMapping,
+)
 
 
 def test_air_quality_snapshot(
     snapshot: SnapshotAssertion, air_quality_data: dict
 ) -> None:
     """Testing a snapshot of air quality data."""
-    data = AirQualityData.from_dict(air_quality_data)
+    data = AirQualityCurrentConditionsData.from_dict(air_quality_data)
 
     for field in fields(data):
         field_name = field.name
