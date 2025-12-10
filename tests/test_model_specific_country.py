@@ -31,7 +31,7 @@ def test_air_quality_current_conditions_snapshot(
         assert value == snapshot(name=f"{stem}_{field.name}")
 
     assert data.indexes[1].category == snapshot(name=f"{stem}_{'category_normalized'}")
-    mapping = AQICategoryMapping._mapping[data.indexes[1].code]  # noqa: SLF001
+    mapping = AQICategoryMapping.get(data.indexes[1].code)
     original_category = next(
         cat.original for cat in mapping if cat.normalized == data.indexes[1].category
     )
