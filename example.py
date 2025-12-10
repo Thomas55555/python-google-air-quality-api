@@ -46,6 +46,9 @@ async def main() -> None:
         for idx in current_conditions.indexes:
             print(idx.category_options)
 
+        for idx in forecast.hourly_forecasts[0].indexes:
+            print(idx.category_options)
+
 
 if __name__ == "__main__":
     asyncio.run(main())
