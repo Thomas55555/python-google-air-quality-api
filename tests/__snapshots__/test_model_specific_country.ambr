@@ -1,0 +1,57 @@
+# serializer version: 1
+# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt__indexes]
+  list([
+    Index(code='uaqi', display_name='Universal AQI', category='excellent_air_quality', dominant_pollutant='pm25', aqi=82, color=Color(red=0.30980393, green=0.73333335, blue=0.20784314), aqi_display='82'),
+    Index(code='aut_umwelt', display_name='AQI (AT)', category='2_-_light_green', dominant_pollutant='o3', aqi=2, color=Color(red=0.8, green=1.0, blue=0.4), aqi_display='2'),
+  ])
+# ---
+# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt__pollutants]
+  list([
+    Pollutant(code='co', display_name='CO', full_name='Carbon monoxide', concentration=Concentration(value=0.33706, units='ppm')),
+    Pollutant(code='no2', display_name='NO2', full_name='Nitrogen dioxide', concentration=Concentration(value=16.67, units='ppb')),
+    Pollutant(code='o3', display_name='O3', full_name='Ozone', concentration=Concentration(value=19.94, units='ppb')),
+    Pollutant(code='pm10', display_name='PM10', full_name='Inhalable particulate matter (<10µm)', concentration=Concentration(value=18.48, units='µg/m³')),
+    Pollutant(code='pm25', display_name='PM2.5', full_name='Fine particulate matter (<2.5µm)', concentration=Concentration(value=11.0, units='µg/m³')),
+    Pollutant(code='so2', display_name='SO2', full_name='Sulfur dioxide', concentration=Concentration(value=0.16, units='ppb')),
+  ])
+# ---
+# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt_category_normalized]
+  '2_-_light_green'
+# ---
+# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt_category_original]
+  '2 - Light green'
+# ---
+# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt_date_time]
+  datetime.datetime(2025, 12, 10, 17, 0, tzinfo=datetime.timezone.utc)
+# ---
+# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt_region_code]
+  'at'
+# ---
+# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba__indexes]
+  list([
+    Index(code='uaqi', display_name='Universal AQI', category='good_air_quality', dominant_pollutant='o3', aqi=71, color=Color(red=0.48235294, green=0.79607844, blue=0.2), aqi_display='71'),
+    Index(code='deu_uba', display_name='LQI (DE)', category='good_air_quality', dominant_pollutant='no2', aqi=None, color=Color(red=0.3137255, green=0.8039216, blue=0.6666667), aqi_display=None),
+  ])
+# ---
+# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba__pollutants]
+  list([
+    Pollutant(code='co', display_name='CO', full_name='Carbon monoxide', concentration=Concentration(value=0.19197, units='ppm')),
+    Pollutant(code='no2', display_name='NO2', full_name='Nitrogen dioxide', concentration=Concentration(value=16.97, units='ppb')),
+    Pollutant(code='o3', display_name='O3', full_name='Ozone', concentration=Concentration(value=35.17, units='ppb')),
+    Pollutant(code='pm10', display_name='PM10', full_name='Inhalable particulate matter (<10µm)', concentration=Concentration(value=13.53, units='µg/m³')),
+    Pollutant(code='pm25', display_name='PM2.5', full_name='Fine particulate matter (<2.5µm)', concentration=Concentration(value=4.61, units='µg/m³')),
+    Pollutant(code='so2', display_name='SO2', full_name='Sulfur dioxide', concentration=Concentration(value=1.37, units='ppb')),
+  ])
+# ---
+# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba_category_normalized]
+  'good_air_quality'
+# ---
+# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba_category_original]
+  'Good air quality'
+# ---
+# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba_date_time]
+  datetime.datetime(2025, 5, 25, 8, 0, tzinfo=datetime.timezone.utc)
+# ---
+# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba_region_code]
+  'de'
+# ---
