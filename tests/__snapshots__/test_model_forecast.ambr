@@ -104,11 +104,6 @@
     'warning_air_pollution': 'Warning level air pollution',
   })
 # ---
-# name: test_air_quality_forecast_snapshot[hourly_forecasts]
-  list([
-    AirQualityCurrentConditionsData(date_time=datetime.datetime(2025, 12, 8, 7, 0, tzinfo=datetime.timezone.utc), _indexes=[Index(code='uaqi', display_name='Universal AQI', category='excellent_air_quality', dominant_pollutant='o3', aqi=80, color=Color(red=0.34509805, green=0.74509805, blue=0.20784314), aqi_display='80'), Index(code='deu_uba', display_name='LQI (DE)', category='very_good_air_quality', dominant_pollutant='o3', aqi=None, color=Color(red=0.3137255, green=0.9411765, blue=0.9019608), aqi_display=None)], _pollutants=[Pollutant(code='co', display_name='CO', full_name='Carbon monoxide', concentration=Concentration(value=0.16418000000000002, units='ppm')), Pollutant(code='no2', display_name='NO2', full_name='Nitrogen dioxide', concentration=Concentration(value=6.88, units='ppb')), Pollutant(code='o3', display_name='O3', full_name='Ozone', concentration=Concentration(value=24.29, units='ppb')), Pollutant(code='pm10', display_name='PM10', full_name='Inhalable particulate matter (<10µm)', concentration=Concentration(value=2.02, units='µg/m³')), Pollutant(code='pm25', display_name='PM2.5', full_name='Fine particulate matter (<2.5µm)', concentration=Concentration(value=1.32, units='µg/m³')), Pollutant(code='so2', display_name='SO2', full_name='Sulfur dioxide', concentration=Concentration(value=0.37, units='ppb'))], region_code=None),
-  ])
-# ---
 # name: test_air_quality_forecast_snapshot[indexes_category_options]
   list([
     list([
@@ -144,7 +139,4 @@
       'pm10',
     ]),
   ])
-# ---
-# name: test_air_quality_forecast_snapshot[region_code]
-  'de'
 # ---

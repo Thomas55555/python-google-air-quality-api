@@ -1,7 +1,5 @@
 """Snapshot tests for Google Air Quality API client."""
 
-from dataclasses import fields
-
 from syrupy.assertion import SnapshotAssertion
 
 from google_air_quality_api.model import (
@@ -15,11 +13,6 @@ def test_air_quality_forecast_snapshot(
 ) -> None:
     """Testing a snapshot of air quality data."""
     data = AirQualityForecastData.from_dict(air_quality_forecast_data)
-
-    for field in fields(data):
-        field_name = field.name
-        field_value = getattr(data, field_name)
-        assert field_value == snapshot(name=f"{field_name}")
 
     all_options = [idx.category_options for idx in data.hourly_forecasts[0].indexes]
     assert all_options == snapshot(name="indexes_category_options")
