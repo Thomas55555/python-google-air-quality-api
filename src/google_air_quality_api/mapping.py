@@ -46,11 +46,11 @@ class AQICategoryMapping:
             AQICategory("extremely_poor_air_quality", "Extremely poor air quality"),
         ],
         "aut_umwelt": [
-            AQICategory("1_-_green", "1 - Green"),
-            AQICategory("2_-_light_green", "2 - Light green"),
-            AQICategory("3_-_yellow", "3 - Yellow"),
-            AQICategory("4_-_orange", "4 - Orange"),
-            AQICategory("5_-_red", "5 - Red"),
+            AQICategory("1_green", "1 - Green"),
+            AQICategory("2_light_green", "2 - Light green"),
+            AQICategory("3_yellow", "3 - Yellow"),
+            AQICategory("4_orange", "4 - Orange"),
+            AQICategory("5_red", "5 - Red"),
         ],
         "aut_vienna": [
             AQICategory("very_good_air_quality", "Very good air quality"),

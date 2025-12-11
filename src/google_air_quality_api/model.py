@@ -2,7 +2,6 @@
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from re import sub
 from typing import Any
 
 from mashumaro import DataClassDictMixin, field_options
@@ -10,6 +9,19 @@ from mashumaro.mixins.json import DataClassJSONMixin
 
 from .mapping import AQICategoryMapping
 from .pollutants import POLLUTANT_CODE_MAPPING
+
+
+def lookup_normalized_generic(original: str) -> str:
+    """Lookup normalized category for a given original string."""
+    original_lower = original.lower().strip()
+
+    for system_categories in AQICategoryMapping._mapping.values():
+        for category in system_categories:
+            if category.original.lower() == original_lower:
+                return category.normalized
+
+    # Falls nichts gefunden wurde → Original zurückgeben
+    return original_lower
 
 
 @dataclass
@@ -72,7 +84,7 @@ class Index(DataClassDictMixin):
     code: str
     display_name: str = field(metadata={"alias": "displayName"})
     category: str = field(
-        metadata=field_options(deserialize=lambda x: sub(r"\s+", "_", x.lower()))
+        metadata=field_options(deserialize=lambda x: lookup_normalized_generic(x))
     )
     dominant_pollutant: str = field(metadata={"alias": "dominantPollutant"})
     aqi: int | None = None
