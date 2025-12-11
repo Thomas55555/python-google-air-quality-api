@@ -15,6 +15,7 @@ class AQICategory:
 class AQICategoryMapping:
     """Mapping of AQI categories to their normalized and original names."""
 
+    _reverse_mapping: ClassVar[dict[str, str] | None] = None
     _mapping: ClassVar[dict[str, list[AQICategory]]] = {
         "uaqi": [
             AQICategory("excellent_air_quality", "Excellent air quality"),
@@ -46,11 +47,11 @@ class AQICategoryMapping:
             AQICategory("extremely_poor_air_quality", "Extremely poor air quality"),
         ],
         "aut_umwelt": [
-            AQICategory("1_-_green", "1 - Green"),
-            AQICategory("2_-_light_green", "2 - Light green"),
-            AQICategory("3_-_yellow", "3 - Yellow"),
-            AQICategory("4_-_orange", "4 - Orange"),
-            AQICategory("5_-_red", "5 - Red"),
+            AQICategory("1_green", "1 - Green"),
+            AQICategory("2_light_green", "2 - Light green"),
+            AQICategory("3_yellow", "3 - Yellow"),
+            AQICategory("4_orange", "4 - Orange"),
+            AQICategory("5_red", "5 - Red"),
         ],
         "aut_vienna": [
             AQICategory("very_good_air_quality", "Very good air quality"),
@@ -541,6 +542,21 @@ class AQICategoryMapping:
             AQICategory("hazardous_air_quality", "Hazardous air quality"),
         ],
     }
+
+    @classmethod
+    def get_reverse_mapping(cls) -> dict[str, str]:
+        """Build and return a cached reverse mapping (Ruff-konform)."""
+        if (
+            not hasattr(cls, "_cached_reverse_mapping")
+            or cls._cached_reverse_mapping is None
+        ):
+            reverse_map = {}
+            for category_list in cls._mapping.values():
+                for category in category_list:
+                    if category.original.lower() not in reverse_map:
+                        reverse_map[category.original.lower()] = category.normalized
+            cls._cached_reverse_mapping = reverse_map
+        return cls._cached_reverse_mapping
 
     @classmethod
     def get(cls, code: str) -> list[AQICategory] | None:

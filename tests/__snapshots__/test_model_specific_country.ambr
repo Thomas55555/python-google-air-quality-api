@@ -2,7 +2,7 @@
 # name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt__indexes]
   list([
     Index(code='uaqi', display_name='Universal AQI', category='excellent_air_quality', dominant_pollutant='pm25', aqi=82, color=Color(red=0.30980393, green=0.73333335, blue=0.20784314), aqi_display='82'),
-    Index(code='aut_umwelt', display_name='AQI (AT)', category='2_-_light_green', dominant_pollutant='o3', aqi=2, color=Color(red=0.8, green=1.0, blue=0.4), aqi_display='2'),
+    Index(code='aut_umwelt', display_name='AQI (AT)', category='2_light_green', dominant_pollutant='o3', aqi=2, color=Color(red=0.8, green=1.0, blue=0.4), aqi_display='2'),
   ])
 # ---
 # name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt__pollutants]
@@ -16,7 +16,7 @@
   ])
 # ---
 # name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt_category_normalized]
-  '2_-_light_green'
+  '2_light_green'
 # ---
 # name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt_category_original]
   '2 - Light green'
