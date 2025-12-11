@@ -12,16 +12,10 @@ from .pollutants import POLLUTANT_CODE_MAPPING
 
 
 def lookup_normalized_generic(original: str) -> str:
-    """Lookup normalized category for a given original string."""
+    """Lookup normalized category for a given original string using cached reverse mapping."""
     original_lower = original.lower().strip()
-
-    for system_categories in AQICategoryMapping._mapping.values():
-        for category in system_categories:
-            if category.original.lower() == original_lower:
-                return category.normalized
-
-    # Falls nichts gefunden wurde → Original zurückgeben
-    return original_lower
+    reverse_map = AQICategoryMapping.get_reverse_mapping()
+    return reverse_map[original_lower]
 
 
 @dataclass
