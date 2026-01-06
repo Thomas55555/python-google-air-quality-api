@@ -14,7 +14,11 @@ class GoogleAirQualityApi:
         self._auth = auth
 
     async def async_get_current_conditions(
-        self, lat: float, lon: float
+        self,
+        lat: float,
+        lon: float,
+        region_code: str | None = None,
+        custom_local_aqi: str | None = None,
     ) -> AirQualityCurrentConditionsData:
         """Get all air quality data."""
         payload = {
@@ -25,6 +29,10 @@ class GoogleAirQualityApi:
             ],
             "universalAqi": True,
         }
+        if region_code is not None and custom_local_aqi is not None:
+            payload["customLocalAqis"] = [
+                {"regionCode": region_code, "aqi": custom_local_aqi}
+            ]
         return await self._auth.post_json(
             "currentConditions:lookup",
             json=payload,

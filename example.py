@@ -36,7 +36,9 @@ async def main() -> None:
         auth = Auth(websession, API_KEY, referrer="https://storage.googleapis.com")
         api = GoogleAirQualityApi(auth)
 
-        current_conditions = await api.async_get_current_conditions(LATITUDE, LONGITUDE)
+        current_conditions = await api.async_get_current_conditions(
+            LATITUDE, LONGITUDE, region_code="DE", custom_local_aqi="usa_epa_nowcast"
+        )
         print("Current conditions:%s", current_conditions)
         forecast = await api.async_get_forecast(
             LATITUDE, LONGITUDE, forecast_timedelta=timedelta(hours=1)
