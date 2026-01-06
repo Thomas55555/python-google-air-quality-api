@@ -61,6 +61,9 @@ async def test_async_get_current_conditions_data(
     result = await api.async_get_current_conditions(1, 2)
     assert result is not None
 
+    result = await api.async_get_current_conditions(1, 2, "DE", "usa_epa_nowcast")
+    assert result is not None
+
 
 async def test_async_get_forecast(api: GoogleAirQualityApi) -> None:
     """Test forecast lookup API."""

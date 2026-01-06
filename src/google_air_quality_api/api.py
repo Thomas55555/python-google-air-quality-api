@@ -29,7 +29,7 @@ class GoogleAirQualityApi:
             ],
             "universalAqi": True,
         }
-        if region_code is not None and custom_local_aqi is not None:
+        if region_code and custom_local_aqi:
             payload["customLocalAqis"] = [
                 {"regionCode": region_code, "aqi": custom_local_aqi}
             ]
