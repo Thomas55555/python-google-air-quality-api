@@ -146,6 +146,7 @@ class Auth:
             if (
                 err.status == HTTPStatus.BAD_REQUEST
                 and error_detail is not None
+                and error_detail.message is not None
                 and error_detail.status == "INVALID_ARGUMENT"
                 and UNSUPPORTED_LAQI_ERROR in error_detail.message
             ):
