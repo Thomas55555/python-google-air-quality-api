@@ -19,3 +19,11 @@ class ApiForbiddenError(GoogleAirQualityApiError):
 
 class NoDataForLocationError(GoogleAirQualityApiError):
     """Raised due to permission errors talking to API."""
+
+
+class InvalidAqiConfigurationError(GoogleAirQualityApiError):
+    """Invalid combination of region_code and custom_local_aqi."""
+
+
+class UnsupportedLocalAqiForCountryError(GoogleAirQualityApiError):
+    """Raised when a local AQI is not supported for the given country."""

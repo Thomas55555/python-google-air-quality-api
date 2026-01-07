@@ -3,7 +3,12 @@
 from datetime import UTC, datetime, timedelta
 
 from .auth import Auth
+from .exceptions import InvalidAqiConfigurationError
 from .model import AirQualityCurrentConditionsData, AirQualityForecastData
+
+INVALID_CUSTOM_AQI_COMBINATION = (
+    "Both region_code and custom_local_aqi must be provided together, or neither."
+)
 
 
 class GoogleAirQualityApi:
@@ -29,6 +34,8 @@ class GoogleAirQualityApi:
             ],
             "universalAqi": True,
         }
+        if (region_code is None) ^ (custom_local_aqi is None):
+            raise InvalidAqiConfigurationError(INVALID_CUSTOM_AQI_COMBINATION)
         if region_code and custom_local_aqi:
             payload["customLocalAqis"] = [
                 {"regionCode": region_code, "aqi": custom_local_aqi}

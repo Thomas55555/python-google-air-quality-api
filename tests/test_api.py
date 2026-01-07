@@ -7,6 +7,7 @@ import pytest
 from aiohttp import web
 
 from google_air_quality_api.api import GoogleAirQualityApi
+from google_air_quality_api.exceptions import InvalidAqiConfigurationError
 
 from .conftest import AuthCallback
 
@@ -63,6 +64,9 @@ async def test_async_get_current_conditions_data(
 
     result = await api.async_get_current_conditions(1, 2, "DE", "usa_epa_nowcast")
     assert result is not None
+
+    with pytest.raises(InvalidAqiConfigurationError):
+        await api.async_get_current_conditions(1, 2, "DE")
 
 
 async def test_async_get_forecast(api: GoogleAirQualityApi) -> None:
