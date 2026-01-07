@@ -104,7 +104,7 @@
     'warning_air_pollution': 'Warning level air pollution',
   })
 # ---
-# name: test_air_quality_current_conditions_snapshot[aqi_region_codes]
+# name: test_air_quality_current_conditions_snapshot[all_local_air_quality_indices]
   list([
     'and_aire',
     'aus_combined',
