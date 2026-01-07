@@ -145,9 +145,9 @@ class Auth:
                 raise AuthError(error_message) from err
             if (
                 err.status == HTTPStatus.BAD_REQUEST
-                and error_detail is not None
-                and error_detail.message is not None
+                and error_detail
                 and error_detail.status == "INVALID_ARGUMENT"
+                and error_detail.message
                 and UNSUPPORTED_LAQI_ERROR in error_detail.message
             ):
                 raise InvalidCustomLAQIConfigurationError(error_message) from err
