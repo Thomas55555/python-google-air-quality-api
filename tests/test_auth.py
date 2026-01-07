@@ -8,8 +8,12 @@ from aiohttp import web
 from mashumaro import field_options
 from mashumaro.mixins.json import DataClassJSONMixin
 
-from google_air_quality_api.auth import Auth
-from google_air_quality_api.exceptions import ApiError, ApiForbiddenError
+from google_air_quality_api.auth import UNSUPPORTED_LAQI_ERROR, Auth
+from google_air_quality_api.exceptions import (
+    ApiError,
+    ApiForbiddenError,
+    InvalidCustomLAQIConfigurationError,
+)
 
 from .conftest import AuthCallback
 
@@ -269,5 +273,31 @@ async def test_invalid_argument(auth_cb: AuthCallback) -> None:
             "Bad Request response from API (400): INVALID_ARGUMENT (400): Request contains an invalid argument."
         )
         + "\nError details: .*",
+    ):
+        await auth.get_json("some-path", data_cls=Response)
+
+
+async def test_custom_laqui_error(auth_cb: AuthCallback) -> None:
+    """Test request/response handling for custom LAQI errors."""
+
+    async def handler(_: web.Request) -> web.Response:
+        return web.json_response(
+            {
+                "error": {
+                    "code": 400,
+                    "message": UNSUPPORTED_LAQI_ERROR,
+                    "status": "INVALID_ARGUMENT",
+                }
+            },
+            status=400,
+        )
+
+    auth = await auth_cb([("/some-path", handler)])
+
+    with pytest.raises(
+        InvalidCustomLAQIConfigurationError,
+        match=re.escape(
+            "Bad Request response from API (400): INVALID_ARGUMENT (400): One or more LAQIs are not supported"
+        ),
     ):
         await auth.get_json("some-path", data_cls=Response)
