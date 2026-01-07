@@ -22,4 +22,4 @@ class NoDataForLocationError(GoogleAirQualityApiError):
 
 
 class InvalidCustomLAQIConfigurationError(GoogleAirQualityApiError):
-    """Invalid combination of region_code and custom_local_aqi."""
+    """Invalid or unsupported custom local AQI configuration."""
