@@ -17,8 +17,8 @@ from .exceptions import (
     ApiError,
     ApiForbiddenError,
     AuthError,
+    InvalidCustomLAQIConfigurationError,
     NoDataForLocationError,
-    UnsupportedLocalAqiForCountryError,
 )
 from .model import Error, ErrorResponse
 
@@ -150,7 +150,7 @@ class Auth:
                 and error_detail.status == "INVALID_ARGUMENT"
                 and UNSUPPORTED_LAQI_ERROR in error_detail.message
             ):
-                raise UnsupportedLocalAqiForCountryError(error_message) from err
+                raise InvalidCustomLAQIConfigurationError(error_message) from err
             raise ApiError(error_message) from err
         except aiohttp.ClientError as err:
             message = f"Error from API: {err}"
