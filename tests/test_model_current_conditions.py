@@ -22,7 +22,7 @@ def test_air_quality_current_conditions_snapshot(
     all_pollutant_options = [idx.pollutant_options for idx in data.indexes]
     assert all_pollutant_options == snapshot(name="indexes_pollutant_options")
 
-    region_codes = AQICategoryMapping.get_all_region_codes()
+    region_codes = AQICategoryMapping.get_all_laq_indices()
     assert region_codes == snapshot(name="aqi_region_codes")
 
     seen: dict[str, str] = {}

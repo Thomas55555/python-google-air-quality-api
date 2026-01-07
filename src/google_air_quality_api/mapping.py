@@ -572,6 +572,6 @@ class AQICategoryMapping:
         return categories
 
     @classmethod
-    def get_all_region_codes(cls) -> list[str]:
+    def get_all_laq_indices(cls) -> list[str]:
         """Return all supported local air quality indices."""
         return sorted(cls._mapping)
