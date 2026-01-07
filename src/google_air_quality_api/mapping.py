@@ -570,3 +570,8 @@ class AQICategoryMapping:
         for entries in cls._mapping.values():
             categories.extend(entries)
         return categories
+
+    @classmethod
+    def get_all_laq_indices(cls) -> list[str]:
+        """Return all supported local air quality indices."""
+        return sorted(cls._mapping)

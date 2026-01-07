@@ -17,6 +17,7 @@ from .exceptions import (
     ApiError,
     ApiForbiddenError,
     AuthError,
+    InvalidCustomLAQIConfigurationError,
     NoDataForLocationError,
 )
 from .model import Error, ErrorResponse
@@ -26,7 +27,7 @@ _LOGGER = logging.getLogger(__name__)
 
 MALFORMED_RESPONSE = "Server returned malformed response"
 ERROR_CONNECTING = "Error connecting to API"
-
+UNSUPPORTED_LAQI_ERROR = "One or more LAQIs are not supported"
 _T = TypeVar("_T", bound=DataClassJSONMixin)
 
 
@@ -142,6 +143,14 @@ class Auth:
                 raise ApiForbiddenError(error_message) from err
             if err.status == HTTPStatus.UNAUTHORIZED:
                 raise AuthError(error_message) from err
+            if (
+                err.status == HTTPStatus.BAD_REQUEST
+                and error_detail
+                and error_detail.status == "INVALID_ARGUMENT"
+                and error_detail.message
+                and UNSUPPORTED_LAQI_ERROR in error_detail.message
+            ):
+                raise InvalidCustomLAQIConfigurationError(error_message) from err
             raise ApiError(error_message) from err
         except aiohttp.ClientError as err:
             message = f"Error from API: {err}"

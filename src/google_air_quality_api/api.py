@@ -3,7 +3,12 @@
 from datetime import UTC, datetime, timedelta
 
 from .auth import Auth
+from .exceptions import InvalidCustomLAQIConfigurationError
 from .model import AirQualityCurrentConditionsData, AirQualityForecastData
+
+INVALID_CUSTOM_AQI_COMBINATION = (
+    "Both region_code and custom_local_aqi must be provided together, or neither."
+)
 
 
 class GoogleAirQualityApi:
@@ -14,7 +19,11 @@ class GoogleAirQualityApi:
         self._auth = auth
 
     async def async_get_current_conditions(
-        self, lat: float, lon: float
+        self,
+        lat: float,
+        lon: float,
+        region_code: str | None = None,
+        custom_local_aqi: str | None = None,
     ) -> AirQualityCurrentConditionsData:
         """Get all air quality data."""
         payload = {
@@ -25,6 +34,12 @@ class GoogleAirQualityApi:
             ],
             "universalAqi": True,
         }
+        if (region_code is None) ^ (custom_local_aqi is None):
+            raise InvalidCustomLAQIConfigurationError(INVALID_CUSTOM_AQI_COMBINATION)
+        if region_code and custom_local_aqi:
+            payload["customLocalAqis"] = [
+                {"regionCode": region_code, "aqi": custom_local_aqi}
+            ]
         return await self._auth.post_json(
             "currentConditions:lookup",
             json=payload,
