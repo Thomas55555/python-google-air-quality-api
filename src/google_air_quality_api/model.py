@@ -107,7 +107,9 @@ class IndexList(list[Index]):
     @property
     def uaqi(self) -> Index:
         """Return the universal AQI index."""
-        return next(index for index in self if index.code == "uaqi")
+        for index in self:
+            if index.code == "uaqi":
+                return index
 
     @property
     def laqi(self) -> Index:
