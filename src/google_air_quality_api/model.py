@@ -105,14 +105,14 @@ class IndexList(list[Index]):
     """Allows semantic access to air quality indexes."""
 
     @property
-    def uaqi(self) -> Index | None:
-        """Return the universal AQI index, if available."""
-        return next((index for index in self if index.code == "uaqi"), None)
+    def uaqi(self) -> Index:
+        """Return the universal AQI index."""
+        return next(index for index in self if index.code == "uaqi")
 
     @property
-    def laqi(self) -> Index | None:
-        """Return the local AQI index, if available."""
-        return next((index for index in self if index.code != "uaqi"), None)
+    def laqi(self) -> Index:
+        """Return the local AQI index."""
+        return next(index for index in self if index.code != "uaqi")
 
 
 @dataclass
