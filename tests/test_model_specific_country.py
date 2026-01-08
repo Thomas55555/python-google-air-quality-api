@@ -30,9 +30,11 @@ def test_air_quality_current_conditions_snapshot(
         value = getattr(data, field.name)
         assert value == snapshot(name=f"{stem}_{field.name}")
 
-    assert data.indexes[1].category == snapshot(name=f"{stem}_{'category_normalized'}")
-    mapping = AQICategoryMapping.get(data.indexes[1].code)
+    assert data.indexes.laqi.category == snapshot(
+        name=f"{stem}_{'category_normalized'}"
+    )
+    mapping = AQICategoryMapping.get(data.indexes.laqi.code)
     original_category = next(
-        cat.original for cat in mapping if cat.normalized == data.indexes[1].category
+        cat.original for cat in mapping if cat.normalized == data.indexes.laqi.category
     )
     assert original_category == snapshot(name=f"{stem}_category_original")

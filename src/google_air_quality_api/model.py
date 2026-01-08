@@ -102,7 +102,23 @@ class Index(DataClassDictMixin):
 
 
 class IndexList(list[Index]):
-    """Allows attribute access by index code."""
+    """Allows semantic access to air quality indexes."""
+
+    @property
+    def uaqi(self) -> Index | None:
+        """Return the universal AQI index, if available."""
+        for index in self:
+            if index.code == "uaqi":
+                return index
+        return None
+
+    @property
+    def laqi(self) -> Index | None:
+        """Return the local AQI index, if available."""
+        for index in self:
+            if index.code != "uaqi":
+                return index
+        return None
 
 
 @dataclass
