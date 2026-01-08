@@ -107,18 +107,12 @@ class IndexList(list[Index]):
     @property
     def uaqi(self) -> Index | None:
         """Return the universal AQI index, if available."""
-        for index in self:
-            if index.code == "uaqi":
-                return index
-        return None
+        return next((index for index in self if index.code == "uaqi"), None)
 
     @property
     def laqi(self) -> Index | None:
         """Return the local AQI index, if available."""
-        for index in self:
-            if index.code != "uaqi":
-                return index
-        return None
+        return next((index for index in self if index.code != "uaqi"), None)
 
 
 @dataclass
