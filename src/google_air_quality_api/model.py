@@ -114,7 +114,9 @@ class IndexList(list[Index]):
     @property
     def laqi(self) -> Index:
         """Return the local AQI index."""
-        return next(index for index in self if index.code != "uaqi")
+        for index in self:
+            if index.code != "uaqi":
+                return index
 
 
 @dataclass
