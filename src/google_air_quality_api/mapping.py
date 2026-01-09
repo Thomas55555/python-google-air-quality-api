@@ -90,11 +90,11 @@ class AQICategoryMapping:
             AQICategory("very_high_air_pollution", "Very high air pollution"),
         ],
         "bra_saopaulo": [
-            AQICategory("n1_good_air_quality", "N1 – Good air quality"),
-            AQICategory("n2_moderate_air_quality", "N2 – Moderate air quality"),
-            AQICategory("n3_bad_air_quality", "N3 – Bad air quality"),
-            AQICategory("n4_very_bad_air_quality", "N4 – Very bad air quality"),
-            AQICategory("n5_poor_air_quality", "N5 – Poor air quality"),
+            AQICategory("n1_good_air_quality", "N1 – Good air quality"),  # noqa: RUF001
+            AQICategory("n2_moderate_air_quality", "N2 – Moderate air quality"),  # noqa: RUF001
+            AQICategory("n3_bad_air_quality", "N3 – Bad air quality"),  # noqa: RUF001
+            AQICategory("n4_very_bad_air_quality", "N4 – Very bad air quality"),  # noqa: RUF001
+            AQICategory("n5_poor_air_quality", "N5 – Poor air quality"),  # noqa: RUF001
         ],
         "can_ec": [
             AQICategory("low_health_risk", "Low health risk"),
