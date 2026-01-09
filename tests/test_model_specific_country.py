@@ -16,7 +16,11 @@ FIXTURE_DIR = Path(__file__).parent / "fixtures" / "specific"
 fixture_files = sorted(FIXTURE_DIR.glob("*.json"))
 
 
-@pytest.mark.parametrize("fixture_path", fixture_files)
+@pytest.mark.parametrize(
+    "fixture_path",
+    fixture_files,
+    ids=lambda path: path.stem,
+)
 def test_air_quality_current_conditions_snapshot(
     snapshot: SnapshotAssertion,
     fixture_path: Path,
@@ -25,16 +29,13 @@ def test_air_quality_current_conditions_snapshot(
     data_raw = json.loads(fixture_path.read_text(encoding="utf-8"))
     data = AirQualityCurrentConditionsData.from_dict(data_raw)
 
-    stem = fixture_path.stem
     for field in fields(data):
         value = getattr(data, field.name)
-        assert value == snapshot(name=f"{stem}_{field.name}")
+        assert value == snapshot(name=field.name)
 
-    assert data.indexes.laqi.category == snapshot(
-        name=f"{stem}_{'category_normalized'}"
-    )
+    assert data.indexes.laqi.category == snapshot(name="category_normalized")
     mapping = AQICategoryMapping.get(data.indexes.laqi.code)
     original_category = next(
         cat.original for cat in mapping if cat.normalized == data.indexes.laqi.category
     )
-    assert original_category == snapshot(name=f"{stem}_category_original")
+    assert original_category == snapshot(name="category_original")
