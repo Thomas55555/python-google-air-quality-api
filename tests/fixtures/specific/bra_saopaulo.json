@@ -1,0 +1,86 @@
+{
+  "dateTime": "2026-01-09T07:00:00Z",
+  "regionCode": "br",
+  "indexes": [
+    {
+      "code": "uaqi",
+      "displayName": "Universal AQI",
+      "aqi": 76,
+      "aqiDisplay": "76",
+      "color": {
+        "red": 0.4117647,
+        "green": 0.77254903,
+        "blue": 0.20392157
+      },
+      "category": "Good air quality",
+      "dominantPollutant": "pm10"
+    },
+    {
+      "code": "bra_saopaulo",
+      "displayName": "AQI (BR)",
+      "aqi": 20,
+      "aqiDisplay": "20",
+      "color": {
+        "green": 0.8
+      },
+      "category": "N1 – Good air quality",
+      "dominantPollutant": "pm10"
+    }
+  ],
+  "pollutants": [
+    {
+      "code": "co",
+      "displayName": "CO",
+      "fullName": "Carbon monoxide",
+      "concentration": {
+        "value": 690.8,
+        "units": "PARTS_PER_BILLION"
+      }
+    },
+    {
+      "code": "no2",
+      "displayName": "NO2",
+      "fullName": "Nitrogen dioxide",
+      "concentration": {
+        "value": 30.3,
+        "units": "PARTS_PER_BILLION"
+      }
+    },
+    {
+      "code": "o3",
+      "displayName": "O3",
+      "fullName": "Ozone",
+      "concentration": {
+        "value": 7.16,
+        "units": "PARTS_PER_BILLION"
+      }
+    },
+    {
+      "code": "pm10",
+      "displayName": "PM10",
+      "fullName": "Inhalable particulate matter (\u003c10µm)",
+      "concentration": {
+        "value": 27.43,
+        "units": "MICROGRAMS_PER_CUBIC_METER"
+      }
+    },
+    {
+      "code": "pm25",
+      "displayName": "PM2.5",
+      "fullName": "Fine particulate matter (\u003c2.5µm)",
+      "concentration": {
+        "value": 14.72,
+        "units": "MICROGRAMS_PER_CUBIC_METER"
+      }
+    },
+    {
+      "code": "so2",
+      "displayName": "SO2",
+      "fullName": "Sulfur dioxide",
+      "concentration": {
+        "value": 1.26,
+        "units": "PARTS_PER_BILLION"
+      }
+    }
+  ]
+}
