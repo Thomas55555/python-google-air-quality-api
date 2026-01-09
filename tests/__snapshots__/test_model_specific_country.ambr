@@ -1,11 +1,11 @@
 # serializer version: 1
-# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt__indexes]
+# name: test_air_quality_current_conditions_snapshot[aut_umwelt][_indexes]
   list([
     Index(code='uaqi', display_name='Universal AQI', category='excellent_air_quality', dominant_pollutant='pm25', aqi=82, color=Color(red=0.30980393, green=0.73333335, blue=0.20784314), aqi_display='82'),
     Index(code='aut_umwelt', display_name='AQI (AT)', category='2_light_green', dominant_pollutant='o3', aqi=2, color=Color(red=0.8, green=1.0, blue=0.4), aqi_display='2'),
   ])
 # ---
-# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt__pollutants]
+# name: test_air_quality_current_conditions_snapshot[aut_umwelt][_pollutants]
   list([
     Pollutant(code='co', display_name='CO', full_name='Carbon monoxide', concentration=Concentration(value=0.33706, units='ppm')),
     Pollutant(code='no2', display_name='NO2', full_name='Nitrogen dioxide', concentration=Concentration(value=16.67, units='ppb')),
@@ -15,25 +15,25 @@
     Pollutant(code='so2', display_name='SO2', full_name='Sulfur dioxide', concentration=Concentration(value=0.16, units='ppb')),
   ])
 # ---
-# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt_category_normalized]
+# name: test_air_quality_current_conditions_snapshot[aut_umwelt][category_normalized]
   '2_light_green'
 # ---
-# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt_category_original]
+# name: test_air_quality_current_conditions_snapshot[aut_umwelt][category_original]
   '2 - Light green'
 # ---
-# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt_date_time]
+# name: test_air_quality_current_conditions_snapshot[aut_umwelt][date_time]
   datetime.datetime(2025, 12, 10, 17, 0, tzinfo=datetime.timezone.utc)
 # ---
-# name: test_air_quality_current_conditions_snapshot[fixture_path0][aut_umwelt_region_code]
+# name: test_air_quality_current_conditions_snapshot[aut_umwelt][region_code]
   'at'
 # ---
-# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba__indexes]
+# name: test_air_quality_current_conditions_snapshot[deu_uba][_indexes]
   list([
     Index(code='uaqi', display_name='Universal AQI', category='good_air_quality', dominant_pollutant='o3', aqi=71, color=Color(red=0.48235294, green=0.79607844, blue=0.2), aqi_display='71'),
     Index(code='deu_uba', display_name='LQI (DE)', category='good_air_quality', dominant_pollutant='no2', aqi=None, color=Color(red=0.3137255, green=0.8039216, blue=0.6666667), aqi_display=None),
   ])
 # ---
-# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba__pollutants]
+# name: test_air_quality_current_conditions_snapshot[deu_uba][_pollutants]
   list([
     Pollutant(code='co', display_name='CO', full_name='Carbon monoxide', concentration=Concentration(value=0.19197, units='ppm')),
     Pollutant(code='no2', display_name='NO2', full_name='Nitrogen dioxide', concentration=Concentration(value=16.97, units='ppb')),
@@ -43,15 +43,15 @@
     Pollutant(code='so2', display_name='SO2', full_name='Sulfur dioxide', concentration=Concentration(value=1.37, units='ppb')),
   ])
 # ---
-# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba_category_normalized]
+# name: test_air_quality_current_conditions_snapshot[deu_uba][category_normalized]
   'good_air_quality'
 # ---
-# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba_category_original]
+# name: test_air_quality_current_conditions_snapshot[deu_uba][category_original]
   'Good air quality'
 # ---
-# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba_date_time]
+# name: test_air_quality_current_conditions_snapshot[deu_uba][date_time]
   datetime.datetime(2025, 5, 25, 8, 0, tzinfo=datetime.timezone.utc)
 # ---
-# name: test_air_quality_current_conditions_snapshot[fixture_path1][deu_uba_region_code]
+# name: test_air_quality_current_conditions_snapshot[deu_uba][region_code]
   'de'
 # ---
