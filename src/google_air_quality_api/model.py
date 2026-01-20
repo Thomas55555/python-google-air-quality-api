@@ -44,10 +44,6 @@ class Pollutant(DataClassDictMixin):
         elif units == "MICROGRAMS_PER_CUBIC_METER":
             self.concentration.units = "µg/m³"
 
-        if self.code.lower() == "co" and self.concentration.units == "ppb":
-            self.concentration.value = self.concentration.value / 1000
-            self.concentration.units = "ppm"
-
 
 class PollutantList(list[Pollutant]):
     """Allows attribute access by pollutant code."""
