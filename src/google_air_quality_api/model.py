@@ -1,5 +1,6 @@
 """Google Air Quality Library API Data Model."""
 
+import logging
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
@@ -10,11 +11,18 @@ from mashumaro.mixins.json import DataClassJSONMixin
 from .mapping import AQICategoryMapping
 from .pollutants import POLLUTANT_CODE_MAPPING
 
+_LOGGER = logging.getLogger(__name__)
 
-def lookup_normalized_generic(original: str) -> str:
-    """Lookup normalized category for a given original string using cached reverse mapping."""
+
+def lookup_normalized_generic(original: str) -> str | None:
+    """Return normalized AQI category if known, otherwise the original value."""
     original_lower = original.lower().strip()
     reverse_map = AQICategoryMapping.get_reverse_mapping()
+
+    if original_lower not in reverse_map:
+        _LOGGER.debug("Unknown AQI category from API: %s", original)
+        return None
+
     return reverse_map[original_lower]
 
 
@@ -73,7 +81,7 @@ class Index(DataClassDictMixin):
 
     code: str
     display_name: str = field(metadata={"alias": "displayName"})
-    category: str = field(
+    category: str | None = field(
         metadata=field_options(deserialize=lambda x: lookup_normalized_generic(x))
     )
     dominant_pollutant: str = field(metadata={"alias": "dominantPollutant"})
