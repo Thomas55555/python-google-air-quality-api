@@ -15,7 +15,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 def lookup_normalized_generic(original: str) -> str | None:
-    """Return normalized AQI category if known, otherwise the original value."""
+    """Return normalized AQI category if known, otherwise None."""
     original_lower = original.lower().strip()
     reverse_map = AQICategoryMapping.get_reverse_mapping()
 
