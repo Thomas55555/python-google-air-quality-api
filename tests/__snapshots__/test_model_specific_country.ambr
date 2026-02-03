@@ -83,3 +83,32 @@
 # name: test_air_quality_current_conditions_snapshot[deu_uba][region_code]
   'de'
 # ---
+# name: test_air_quality_current_conditions_snapshot[isr_moep][_indexes]
+  list([
+    Index(code='uaqi', display_name='Universal AQI', category='good_air_quality', dominant_pollutant='pm10', aqi=74, color=Color(red=0.44705883, green=0.78431374, blue=0.2), aqi_display='74'),
+    Index(code='isr_moep', display_name='AQI (IL)', category=None, dominant_pollutant='pm10', aqi=-250, color=Color(red=0.49411765, green=None, blue=0.13725491), aqi_display='-250'),
+  ])
+# ---
+# name: test_air_quality_current_conditions_snapshot[isr_moep][_pollutants]
+  list([
+    Pollutant(code='co', display_name='CO', full_name='Carbon monoxide', concentration=Concentration(value=233.16, units='ppb')),
+    Pollutant(code='no2', display_name='NO2', full_name='Nitrogen dioxide', concentration=Concentration(value=23.1, units='ppb')),
+    Pollutant(code='o3', display_name='O3', full_name='Ozone', concentration=Concentration(value=30.79, units='ppb')),
+    Pollutant(code='pm10', display_name='PM10', full_name='Inhalable particulate matter (<10µm)', concentration=Concentration(value=29.12, units='µg/m³')),
+    Pollutant(code='pm25', display_name='PM2.5', full_name='Fine particulate matter (<2.5µm)', concentration=Concentration(value=8.11, units='µg/m³')),
+    Pollutant(code='so2', display_name='SO2', full_name='Sulfur dioxide', concentration=Concentration(value=1.66, units='ppb')),
+    Pollutant(code='nox', display_name='NOx', full_name='Nitrogen oxides', concentration=Concentration(value=18.54, units='ppb')),
+  ])
+# ---
+# name: test_air_quality_current_conditions_snapshot[isr_moep][category_normalized]
+  None
+# ---
+# name: test_air_quality_current_conditions_snapshot[isr_moep][category_original]
+  None
+# ---
+# name: test_air_quality_current_conditions_snapshot[isr_moep][date_time]
+  datetime.datetime(2026, 2, 3, 8, 0, tzinfo=datetime.timezone.utc)
+# ---
+# name: test_air_quality_current_conditions_snapshot[isr_moep][region_code]
+  'il'
+# ---

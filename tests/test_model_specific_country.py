@@ -35,7 +35,13 @@ def test_air_quality_current_conditions_snapshot(
 
     assert data.indexes.laqi.category == snapshot(name="category_normalized")
     mapping = AQICategoryMapping.get(data.indexes.laqi.code)
+
     original_category = next(
-        cat.original for cat in mapping if cat.normalized == data.indexes.laqi.category
+        (
+            cat.original
+            for cat in mapping
+            if cat.normalized == data.indexes.laqi.category
+        ),
+        None,
     )
     assert original_category == snapshot(name="category_original")
