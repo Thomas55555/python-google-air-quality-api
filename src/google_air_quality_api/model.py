@@ -82,7 +82,7 @@ class Index(DataClassDictMixin):
     code: str
     display_name: str = field(metadata={"alias": "displayName"})
     category: str | None = field(
-        metadata=field_options(deserialize=lambda x: lookup_normalized_generic(x))
+        metadata=field_options(deserialize=lookup_normalized_generic)
     )
     dominant_pollutant: str = field(metadata={"alias": "dominantPollutant"})
     aqi: int | None = None
