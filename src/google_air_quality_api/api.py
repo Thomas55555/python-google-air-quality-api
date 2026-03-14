@@ -1,6 +1,7 @@
 """API for Google Air Quality bound to Home Assistant OAuth."""
 
 from datetime import UTC, datetime, timedelta
+from typing import NotRequired, TypedDict
 
 from .auth import Auth
 from .exceptions import InvalidCustomLAQIConfigurationError
@@ -9,6 +10,15 @@ from .model import AirQualityCurrentConditionsData, AirQualityForecastData
 INVALID_CUSTOM_AQI_COMBINATION = (
     "Both region_code and custom_local_aqi must be provided together, or neither."
 )
+
+
+class CurrentConditionsPayload(TypedDict):
+    """Payload for current conditions API request."""
+
+    location: dict[str, float]
+    extraComputations: list[str]
+    universalAqi: bool
+    customLocalAqis: NotRequired[list[dict[str, str]]]
 
 
 class GoogleAirQualityApi:
@@ -26,9 +36,7 @@ class GoogleAirQualityApi:
         custom_local_aqi: str | None = None,
     ) -> AirQualityCurrentConditionsData:
         """Get all air quality data."""
-        payload: dict[
-            str, dict[str, float] | list[str] | list[dict[str, str]] | bool
-        ] = {
+        payload: CurrentConditionsPayload = {
             "location": {"latitude": lat, "longitude": lon},
             "extraComputations": [
                 "LOCAL_AQI",
