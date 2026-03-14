@@ -26,7 +26,9 @@ class GoogleAirQualityApi:
         custom_local_aqi: str | None = None,
     ) -> AirQualityCurrentConditionsData:
         """Get all air quality data."""
-        payload = {
+        payload: dict[
+            str, dict[str, float] | list[str] | list[dict[str, str]] | bool
+        ] = {
             "location": {"latitude": lat, "longitude": lon},
             "extraComputations": [
                 "LOCAL_AQI",
