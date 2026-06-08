@@ -46,7 +46,7 @@ syrupy = "5.2.0"
 time-machine = "3.2.0"
 types-pyyaml = "^6.0.12.20241230"
 yamllint = "1.38.0"
-pytest-aiohttp = "1.1.0"
+pytest-aiohttp = "1.1.1"
 ty = "0.0.44"
 
 [tool.pytest.ini_options]
