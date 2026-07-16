@@ -33,7 +33,7 @@ poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = ["plugin"] }
 
 [tool.poetry.group.dev.dependencies]
 aioresponses = "0.7.9"
-codespell = "2.4.2"
+codespell = "2.4.3"
 covdefaults = "2.3.0"
 coverage = {version = "7.15.1", extras = ["toml"]}
 pre-commit = "4.6.0"
