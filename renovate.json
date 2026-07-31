@@ -5,6 +5,8 @@
   "dependencyDashboard": true,
   "labels": ["dependencies", "no-stale"],
   "commitMessagePrefix": "⬆️",
+  "platformAutomerge": false,
+  "automergeRequireAllStatusChecks": true,
   "packageRules": [
     {
       "matchManagers": ["poetry"],
