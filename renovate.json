@@ -6,18 +6,21 @@
   "labels": ["dependencies", "no-stale"],
   "commitMessagePrefix": "⬆️",
   "platformAutomerge": false,
+  "lockFileMaintenance": {
+    "enabled": true
+  },
   "packageRules": [
     {
-      "matchManagers": ["poetry"],
+      "matchManagers": ["uv"],
       "addLabels": ["python"]
     },
     {
-      "matchManagers": ["poetry"],
-      "matchDepTypes": ["dev"],
+      "matchManagers": ["uv"],
+      "matchDepTypes": ["dependency-groups"],
       "rangeStrategy": "pin"
     },
     {
-      "matchManagers": ["poetry"],
+      "matchManagers": ["uv"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
     },
