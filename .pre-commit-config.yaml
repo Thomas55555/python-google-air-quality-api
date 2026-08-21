@@ -67,6 +67,14 @@ repos:
         language: system
         types: [yaml]
         entry: uv run check-yaml
+      - id: codespell
+        name: ✅ Check code for common misspellings
+        language: system
+        types: [text]
+        exclude: ^poetry\.lock$
+        entry: uv run codespell
+        args:
+          - --ignore-words-list=fo,incomfort,nam,bloc,ue
       - id: detect-private-key
         name: 🕵️  Detect Private Keys
         language: system
@@ -84,6 +92,14 @@ repos:
         entry: uv run ty check
         pass_filenames: false
         require_serial: true
+      - id: no-commit-to-branch
+        name: 🛑 Don't commit to main branch
+        language: system
+        entry: uv run no-commit-to-branch
+        pass_filenames: false
+        always_run: true
+        args:
+          - --branch=main
       - id: uv-lock
         name: 📦 Check uv lockfile
         language: system
