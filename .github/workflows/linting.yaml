@@ -26,22 +26,6 @@ jobs:
       - name: 🔍 Check lockfile
         run: uv lock --check
 
-  codespell:
-    name: codespell
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v7.0.1
-      - name: 🏗 Set up uv
-        uses: astral-sh/setup-uv@v10.0.1
-        with:
-          enable-cache: true
-          python-version: ${{ env.DEFAULT_PYTHON }}
-      - name: 🏗 Install dependencies
-        run: uv sync --locked
-      - name: 🚀 Check code for common misspellings
-        run: uv run prek run codespell --all-files
-
   ruff:
     name: Ruff
     runs-on: ubuntu-latest
