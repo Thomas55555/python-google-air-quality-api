@@ -1,53 +1,49 @@
 [build-system]
-requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
-build-backend = "poetry_dynamic_versioning.backend"
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
 
 [project]
 name = "google_air_quality_api"
+# The version is set by GH action on release
 version = "0.0.0"
 description = "Python module to talk to Google Air Quality API."
 readme = "README.md"
-license = { text = "MIT" }
-authors  = [{ name = "Thomas Peter Protzner", email = "thomas.protzner@gmail.com" }]
+license = "MIT"
+authors = [{ name = "Thomas Peter Protzner", email = "thomas.protzner@gmail.com" }]
 requires-python = ">=3.11"
 dependencies = [
     "aiohttp>=3.9.3,<4.0.0",
     "mashumaro>=3.12,<4.0.0",
 ]
-packages     = [{ include = "google_air_quality_api", from = "src" }]
 
 [project.urls]
 Homepage = "https://github.com/Thomas55555/python-google-air-quality-api"
 Repository = "https://github.com/Thomas55555/python-google-air-quality-api"
 Documentation = "https://github.com/Thomas55555/python-google-air-quality-api"
-Issues = "https://github.com/Thomas55555/aioautomower/issues"
+Issues = "https://github.com/Thomas55555/python-google-air-quality-api/issues"
 
-[tool.poetry-dynamic-versioning]
-enable = true
-vcs = "git"
-style = "simple"
-metadata = false
+[tool.hatch.build.targets.wheel]
+packages = ["src/google_air_quality_api"]
 
-[tool.poetry.requires-plugins]
-poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = ["plugin"] }
 
-[tool.poetry.group.dev.dependencies]
-aioresponses = "0.7.9"
-codespell = "2.4.3"
-covdefaults = "2.3.0"
-coverage = {version = "7.15.4", extras = ["toml"]}
-pre-commit = "4.6.2"
-pre-commit-hooks = "6.0.0"
-pytest = "9.1.1"
-pytest-asyncio = "1.4.0"
-pytest-cov = "7.1.0"
-ruff = "0.16.4"
-syrupy = "5.5.3"
-time-machine = "3.4.0"
-types-pyyaml = "^6.0.12.20241230"
-yamllint = "1.38.0"
-pytest-aiohttp = "1.1.1"
-ty = "0.0.73"
+[dependency-groups]
+dev = [
+    "aioresponses==0.7.9",
+    "codespell==2.4.3",
+    "covdefaults==2.3.0",
+    "coverage[toml]==7.15.4",
+    "prek==0.4.14",
+    "pre-commit-hooks==6.0.0",
+    "pytest==9.1.1",
+    "pytest-asyncio==1.4.0",
+    "pytest-cov==7.1.0",
+    "pytest-aiohttp==1.1.1",
+    "ruff==0.16.3",
+    "syrupy==5.5.3",
+    "time-machine==3.4.0",
+    "ty==0.0.72",
+    "yamllint==1.38.0",
+]
 
 [tool.pytest.ini_options]
 addopts = "--cov=google_air_quality_api --cov-report=term-missing -vv"
@@ -60,7 +56,6 @@ src = ["./src"]
 target-version = "py311"
 line-length = 88
 include = ["src/**/*.py", "tests/**/*.py"]
-
 
 [tool.ruff.lint]
 ignore = [
@@ -79,7 +74,6 @@ ignore = [
 select = ["ALL"]
 
 [tool.ruff.lint.per-file-ignores]
-# Allow for main entry & scripts to write to stdout
 "example.py" = ["T201", "T203"]
 
 [tool.ruff.lint.flake8-annotations]
@@ -90,7 +84,6 @@ suppress-dummy-args = true
 builtins-ignorelist = ["id"]
 
 [tool.ruff.lint.pydocstyle]
-# Use Google-style docstrings.
 convention = "pep257"
 
 [tool.ty.environment]
