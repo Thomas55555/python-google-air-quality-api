@@ -21,7 +21,7 @@
     },
     {
       "matchManagers": ["uv"],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["pin", "minor", "patch"],
       "automerge": true
     },
     {
