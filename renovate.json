@@ -11,16 +11,16 @@
   },
   "packageRules": [
     {
-      "matchManagers": ["uv"],
+      "matchManagers": ["pep621"],
       "addLabels": ["python"]
     },
     {
-      "matchManagers": ["uv"],
+      "matchManagers": ["pep621"],
       "matchDepTypes": ["dependency-groups"],
       "rangeStrategy": "pin"
     },
     {
-      "matchManagers": ["uv"],
+      "matchManagers": ["pep621"],
       "matchUpdateTypes": ["pin", "minor", "patch"],
       "automerge": true
     },
